@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Register</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="formRegister">
+        <ion-item>
+          <ion-label position="floating">Tipo de identificación</ion-label>
+          <ion-input formControlName="idType"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Número de identificación</ion-label>
+          <ion-input type="number" formControlName="idNumber"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Apellidos</ion-label>
+          <ion-input formControlName="lastName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input formControlName="firstName"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Correo electrónico</ion-label>
+          <ion-input type="email" formControlName="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Fecha de nacimiento</ion-label>
+          <ion-input type="date" formControlName="bornDate"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password" formControlName="confirmPassword" autocomplete="off"></ion-input>
+        </ion-item>
+      </form>
+      <br>
+      <ion-button (click)="register()">
+        Registrar
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
