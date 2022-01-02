@@ -15,10 +15,10 @@ export class LoginPage implements OnInit {
   client: Client = new Client();
 
   constructor(
-    public fb: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private clientService: ClientService,
-    public alert: AlertService
+    private alert: AlertService
   ) {
     this.formLogin = this.fb.group({
       'email': new FormControl("", Validators.required),

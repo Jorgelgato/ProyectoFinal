@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Client } from '../inicio/client/client';
 import { ClientService } from '../inicio/client/client.service';
 import { AlertService } from '../services/alert.service';
+import { EncryptService } from '../services/encrypt.service';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +19,9 @@ export class RegisterPage implements OnInit {
 
   constructor(
     private clientService: ClientService, 
-    public fb: FormBuilder, 
-    public alert: AlertService,
+    private fb: FormBuilder, 
+    private alert: AlertService,
+    private encrypt: EncryptService,
     private router: Router
     ) {
     this.formRegister = this.fb.group({
@@ -50,6 +52,8 @@ export class RegisterPage implements OnInit {
     var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
     this.client.created = yyyy + '-' + mm + '-' + dd;
+    this.client.password = this.encrypt.encrypt(values.password)
+    this.client.active = true;
     this.saveClient();
   }
 

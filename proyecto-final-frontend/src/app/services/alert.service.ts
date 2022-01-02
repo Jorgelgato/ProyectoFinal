@@ -7,8 +7,8 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class AlertService {
 
   constructor(
-    public alertController: AlertController,
-    public toastController: ToastController
+    private alertController: AlertController,
+    private toastController: ToastController
     ) {}
 
   ngOnInit() {}  

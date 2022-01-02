@@ -16,10 +16,10 @@ export class AccountPage implements OnInit {
   account: Account = new Account();
 
   constructor(
-    public fb: FormBuilder,
+    private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
-    public alert: AlertService,
+    private alert: AlertService,
   ) {
     this.formAccount = this.fb.group({
       'type': new FormControl("", Validators.required),

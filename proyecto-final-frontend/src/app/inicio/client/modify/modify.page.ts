@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
+import { EncryptService } from 'src/app/services/encrypt.service';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 
@@ -18,8 +19,9 @@ export class ModifyPage implements OnInit {
 
   constructor(
     private clientService: ClientService,
-    public fb: FormBuilder,
-    public alert: AlertService,
+    private encrypt: EncryptService,
+    private fb: FormBuilder,
+    private alert: AlertService,
     private router: Router
   ) {
     this.formModify = this.fb.group({
@@ -49,7 +51,8 @@ export class ModifyPage implements OnInit {
       this.alert.presentAlert('Ingrese su contraseña actual');
       return;
     }
-    if (values.oldPassword != this.client.password) {
+
+    if (!this.encrypt.compare(values.oldPassword, this.client.password)) {
       this.alert.presentAlert('Contraseña incorrecta');
       return;
     }
@@ -72,13 +75,8 @@ export class ModifyPage implements OnInit {
     if (values.bornDate) {
       this.client.bornDate = values.bornDate
     }
-    if (values.password && values.confirmPassword) {
-      if (values.password == values.confirmPassword) {
-        this.client.password = values.password
-      } else {
-        this.alert.presentAlert('Las contraseñas no coinciden');
-        return;
-      }
+    if (values.password && values.confirmPassword && (values.password == values.confirmPassword)) {
+        this.client.password = this.encrypt.encrypt(values.password)
     } else {
       this.alert.presentAlert('Las contraseñas no coinciden');
       return;
