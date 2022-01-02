@@ -16,6 +16,10 @@ const routes: Routes = [
         loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
       },
       {
+        path: 'cuenta',
+        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
+      },
+      {
         path: '',
         redirectTo: '/inicio/cliente',
         pathMatch: 'full'
@@ -32,4 +36,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class InicioRoutingModule {}

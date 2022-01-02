@@ -28,21 +28,21 @@ public class ClientController {
 
 	// Get all clients
 	@CrossOrigin(origins = "http://localhost:8100")
-	@GetMapping("/clients")
+	@GetMapping("/client")
 	public List<Client> getAllClients() {
 		return clientRepository.findAll();
 	}
 
 	// Create client
 	@CrossOrigin(origins = "http://localhost:8100")
-	@PostMapping("/clients")
+	@PostMapping("/client")
 	public Client createClient(@RequestBody Client client) {
 		return clientRepository.save(client);
 	}
 
 	// Get client by id
 	@CrossOrigin(origins = "http://localhost:8100")
-	@GetMapping("/clients/{id}")
+	@GetMapping("/client/{id}")
 	public ResponseEntity<Client> getClientById(@PathVariable Long id) {
 		return ResponseEntity
 				.ok(clientRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Client not exist")));
@@ -50,12 +50,12 @@ public class ClientController {
 
 	// Get client by email and password\
 	@CrossOrigin(origins = "http://localhost:8100")
-	@PostMapping("/clients/login")
-	public ResponseEntity<Map<String, Boolean>> getClientByEmailEqualsAndPasswordEquals(@RequestBody Client client) {
+	@PostMapping("/client/login")
+	public ResponseEntity<Map<String, Long>> getClientByEmailEqualsAndPasswordEquals(@RequestBody Client client) {
 		Client c = clientRepository.findByEmailAndPassword(client.getEmail(), client.getPassword())
 				.orElseThrow(() -> new ResourceNotFoundException("Client not exist"));
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("client", true);
+		Map<String, Long> response = new HashMap<>();
+		response.put("id", c.getId());
 		return ResponseEntity.ok(response);
 	}
 

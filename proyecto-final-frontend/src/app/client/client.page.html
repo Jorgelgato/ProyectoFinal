@@ -1,8 +1,26 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
     <ion-title>Bienvenido</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-</ion-content> 
+  <br>
+  <ion-title>Tus cuentas:</ion-title>
+  <ion-infinite-scroll>
+      <ion-card *ngFor="let account of accounts" href="#" class="ion-activated">
+        <ion-card-header>
+          <ion-card-subtitle> {{account.number}}</ion-card-subtitle>
+          <ion-card-title>Cuenta {{account.type}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-item>
+            <ion-label>Saldo disponible: ${{account.amount}}</ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+  </ion-infinite-scroll>
+</ion-content>

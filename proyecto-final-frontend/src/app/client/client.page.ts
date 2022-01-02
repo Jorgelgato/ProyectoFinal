@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Account } from './account';
+import { Account } from '../account/account';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'app-client',
@@ -8,9 +9,24 @@ import { Account } from './account';
 })
 export class ClientPage implements OnInit {
 
-  constructor() { }
+  accounts: Account[]/* = [{ id: 1, type: 0, number: "820833931420", created: "31/12/2021", status: 0, amount: 1600000 },
+  { id: 1, type: 0, number: "821202649628", created: "31/12/2021", status: 0, amount: 1200000 }]*/
 
-  ngOnInit() {
+  constructor(private accountService: AccountService) { }
+
+  ngOnInit(): void {
+  } 
+  
+  ionViewDidEnter(): void {
+    this.getAccountList();
+  }
+
+  ionOnEnterV
+
+  private getAccountList() {
+    this.accountService.getAccountList().subscribe(data => {
+      this.accounts = data;
+    });
   }
 
 }

@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <form [formGroup]="formAccount">
+        <ion-item>
+          <ion-label>Tipo de cuenta</ion-label>
+          <ion-select formControlName="type" value="ahorros" interface="popover">
+            <ion-select-option [value]="0">Ahorros</ion-select-option>
+            <ion-select-option [value]="1">Corriente</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Número de cuenta</ion-label>
+          <ion-input type="number" formControlName="number"></ion-input>
+        </ion-item>
+      </form>
+      <br>
+      <ion-button (click)="createAccount()">
+        Crear cuenta
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

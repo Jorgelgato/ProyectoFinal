@@ -39,13 +39,13 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    console.log(this.client)
+    //console.log(this.client)
     this.clientService.loginClient(this.client).subscribe(data => {
-      console.log(data);
       localStorage.setItem('logged', '1')
+      localStorage.setItem('id', data.id);
       this.router.navigate(['/inicio'])
     }, err => {
-      console.log(err);
+      //console.log(err);
       this.alert.presentErrorToast("Usuario o contraseña incorrecto")
     });
   }

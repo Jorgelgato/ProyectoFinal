@@ -9,4 +9,9 @@ export class InicioPage {
 
   constructor() {}
 
+  logout() {
+    localStorage.removeItem('logged')
+    localStorage.removeItem('id')
+  }
+
 }

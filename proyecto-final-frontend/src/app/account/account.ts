@@ -1,8 +1,9 @@
 export class Account {
     id?: number;
-    type?: string;
+    idClient?: number;
+    type?: number;
     number?: string;
     created?: string;
-    status?: string;
+    status?: number;
     amount?: number;
 }

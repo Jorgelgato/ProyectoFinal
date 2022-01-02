@@ -46,26 +46,19 @@ export class RegisterPage implements OnInit {
       return;
     }
     this.client = values;
-
-    console.log(this.client);
-
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
     var yyyy = today.getFullYear();
-
     this.client.created = yyyy + '-' + mm + '-' + dd;
-    
-    console.log(this.client);
     this.saveClient();
   }
 
   saveClient(){
     this.clientService.createClient(this.client).subscribe(data => {
-      console.log(data);
       this.alert.presentSuccessToast("Cliente creado exitósamente")
       this.router.navigate(['/login'])
-    }, err => { console.log(err); });
+    }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 
 
