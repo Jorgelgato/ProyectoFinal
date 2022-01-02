@@ -7,4 +7,5 @@ export class Client {
     email?: string;
     password?: string;
     created?: string;
+    active?: boolean;
 }

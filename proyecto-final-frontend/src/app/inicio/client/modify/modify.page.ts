@@ -99,4 +99,28 @@ export class ModifyPage implements OnInit {
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 
+  delete() {
+    this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
+      if (res.data) {
+        this.validateClient();
+      }
+    })
+  }
+
+  validateClient() {
+    if (true) {
+      this.client.active = false;
+      this.deleteClient();
+    }
+  }
+
+  deleteClient() {
+    console.log(this.client)
+    this.clientService.updateClient(this.client).subscribe(data => {
+      this.alert.presentSuccessToast("Cliente eliminado exitosamente")
+      localStorage.removeItem('logged')
+      localStorage.removeItem('id')
+      this.router.navigate(['/login'])
+    }, err => { this.alert.presentErrorToast("Error del servidor") });
+  }
 }

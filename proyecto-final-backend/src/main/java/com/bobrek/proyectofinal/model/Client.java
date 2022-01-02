@@ -40,13 +40,16 @@ public class Client {
 
 	@Column(name = "created")
 	private Date created;
+	
+	@Column(name = "active")
+	private boolean active;
 
 	public Client() {
 
 	}
 
 	public Client(long id, String idType, String idNumber, String lastName, String firstName, Date bornDate,
-			String email, String password, Date created) {
+			String email, String password, Date created, boolean active) {
 		super();
 		this.id = id;
 		this.idType = idType;
@@ -57,6 +60,7 @@ public class Client {
 		this.email = email;
 		this.password = password;
 		this.created = created;
+		this.active = active;
 	}
 
 	public long getId() {
@@ -129,6 +133,14 @@ public class Client {
 
 	public void setCreated(Date created) {
 		this.created = created;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 }

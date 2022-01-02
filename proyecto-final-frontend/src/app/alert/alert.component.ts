@@ -54,33 +54,37 @@ export class AlertComponent implements OnInit {
 
     await alert.present();
   }
-
-  async presentAlertConfirm() {
+*/
+  async presentAlertConfirm(msg: string) {
+    let choice;
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Confirm!',
-      message: 'Message <strong>text</strong>!!!',
+      header: 'Confirmación!',
+      message: msg,
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
+          text: 'Cancelar',
+          handler: () => {
+            alert.dismiss(false)
+            return false;
           },
         },
         {
-          text: 'Okay',
+          text: 'Aceptar',
           handler: () => {
-            console.log('Confirm Okay');
+            alert.dismiss(true)
+            return false;
           },
         },
       ],
     });
-
     await alert.present();
+    await alert.onDidDismiss().then((data) => {
+        choice = data;
+    })
+    return choice;
   }
-
+/*
   async presentAlertPrompt() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',

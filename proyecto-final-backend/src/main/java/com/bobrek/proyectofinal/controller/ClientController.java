@@ -72,6 +72,7 @@ public class ClientController {
 		client.setBornDate(newclient.getBornDate());
 		client.setEmail(newclient.getEmail());
 		client.setPassword(newclient.getPassword());
+		client.setActive(newclient.isActive());
 		return ResponseEntity.ok(clientRepository.save(client));
 	}
 }
