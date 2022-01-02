@@ -12,6 +12,10 @@ export class ClientService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getClient(): Observable<Client>{
+    return this.httpClient.get<Client>(`${this.baseUrl}/${localStorage.getItem('id')}`)
+  }
+
   createClient(client: Client): Observable<Object>{
     return this.httpClient.post<Object>(`${this.baseUrl}`, client)
   }
@@ -19,4 +23,9 @@ export class ClientService {
   loginClient(client: Client): Observable<any>{
     return this.httpClient.post<Object>(`${this.baseUrl}/login`, client)
   }
+
+  updateClient(client: Client): Observable<Client>{
+    return this.httpClient.put<Client>(`${this.baseUrl}/${localStorage.getItem('id')}`, client)
+  }
+
 }

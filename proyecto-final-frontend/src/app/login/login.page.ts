@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../alert/alert.component';
-import { Client } from '../client/client';
-import { ClientService } from '../client/client.service';
+import { Client } from '../inicio/client/client';
+import { ClientService } from '../inicio/client/client.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -39,13 +39,11 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    //console.log(this.client)
     this.clientService.loginClient(this.client).subscribe(data => {
       localStorage.setItem('logged', '1')
       localStorage.setItem('id', data.id);
       this.router.navigate(['/inicio'])
     }, err => {
-      //console.log(err);
       this.alert.presentErrorToast("Usuario o contraseña incorrecto")
     });
   }

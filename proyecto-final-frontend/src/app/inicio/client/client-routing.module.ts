@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ClientPage
+  },
+  {
+    path: 'modificar',
+    loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule)
   }
 ];
 

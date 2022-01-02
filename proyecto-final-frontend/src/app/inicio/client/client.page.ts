@@ -21,8 +21,6 @@ export class ClientPage implements OnInit {
     this.getAccountList();
   }
 
-  ionOnEnterV
-
   private getAccountList() {
     this.accountService.getAccountList().subscribe(data => {
       this.accounts = data;

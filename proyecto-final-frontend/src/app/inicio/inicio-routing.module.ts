@@ -9,7 +9,7 @@ const routes: Routes = [
     children: [
       {
         path: 'cliente',
-        loadChildren: () => import('../client/client.module').then(m => m.ClientPageModule)
+        loadChildren: () => import('./client/client.module').then(m => m.ClientPageModule)
       },
       {
         path: 'ajustes',
@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: 'cuenta',
-        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
+        loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
       },
       {
         path: '',

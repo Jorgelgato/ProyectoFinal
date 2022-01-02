@@ -61,13 +61,17 @@ public class ClientController {
 
 	// Update client
 	@CrossOrigin(origins = "http://localhost:8100")
-	@PutMapping("/clients/{id}")
+	@PutMapping("/client/{id}")
 	public ResponseEntity<Client> updateClient(@PathVariable Long id, @RequestBody Client newclient) {
 		Client client = clientRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Client not exist"));
-		client.setFirstName(newclient.getFirstName());
+		client.setIdType(newclient.getIdType());
+		client.setIdNumber(newclient.getIdNumber());
 		client.setLastName(newclient.getLastName());
+		client.setFirstName(newclient.getFirstName());
+		client.setBornDate(newclient.getBornDate());
 		client.setEmail(newclient.getEmail());
+		client.setPassword(newclient.getPassword());
 		return ResponseEntity.ok(clientRepository.save(client));
 	}
 }

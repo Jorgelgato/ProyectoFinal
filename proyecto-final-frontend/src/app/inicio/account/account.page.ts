@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertComponent } from '../alert/alert.component';
-import { AccountService } from '../account/account.service';
+import { AlertComponent } from '../../alert/alert.component';
+import { AccountService } from './account.service';
 import { Account } from './account';
 
 @Component({
@@ -44,13 +44,11 @@ export class AccountPage implements OnInit {
     this.account.created = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
     this.account.status = 0;
     this.account.amount = 0;
-    console.log(this.account)
     this.saveAccount();
   }
 
   saveAccount(){
     this.accountService.createAccount(this.account).subscribe(data => {
-      console.log(data);
       this.alert.presentSuccessToast("Cuenta creada exitósamente")
       this.router.navigate(['/inicio/cliente'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });

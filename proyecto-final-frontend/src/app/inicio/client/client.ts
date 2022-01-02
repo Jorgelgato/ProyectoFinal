@@ -1,5 +1,4 @@
 export class Client {
-    idClient?: number;
     idType?: number;
     idNumber?: number;
     lastName?: string;
