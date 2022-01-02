@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertComponent } from '../alert/alert.component';
 import { Client } from '../inicio/client/client';
 import { ClientService } from '../inicio/client/client.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class RegisterPage implements OnInit {
   constructor(
     private clientService: ClientService, 
     public fb: FormBuilder, 
-    public alert: AlertComponent,
+    public alert: AlertService,
     private router: Router
     ) {
     this.formRegister = this.fb.group({

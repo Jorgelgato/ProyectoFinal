@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertComponent } from '../../alert/alert.component';
 import { AccountService } from './account.service';
 import { Account } from './account';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-account',
@@ -19,7 +19,7 @@ export class AccountPage implements OnInit {
     public fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
-    public alert: AlertComponent
+    public alert: AlertService,
   ) {
     this.formAccount = this.fb.group({
       'type': new FormControl("", Validators.required),

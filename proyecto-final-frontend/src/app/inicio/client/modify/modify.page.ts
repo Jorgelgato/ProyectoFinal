@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertComponent } from 'src/app/alert/alert.component';
+import { AlertService } from 'src/app/services/alert.service';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 
@@ -19,7 +19,7 @@ export class ModifyPage implements OnInit {
   constructor(
     private clientService: ClientService,
     public fb: FormBuilder,
-    public alert: AlertComponent,
+    public alert: AlertService,
     private router: Router
   ) {
     this.formModify = this.fb.group({

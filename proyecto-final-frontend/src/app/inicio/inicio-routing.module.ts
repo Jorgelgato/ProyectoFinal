@@ -12,10 +12,6 @@ const routes: Routes = [
         loadChildren: () => import('./client/client.module').then(m => m.ClientPageModule)
       },
       {
-        path: 'ajustes',
-        loadChildren: () => import('../settings/settings.module').then(m => m.SettingsPageModule)
-      },
-      {
         path: 'cuenta',
         loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
       },
