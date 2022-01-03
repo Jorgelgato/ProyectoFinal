@@ -1,8 +1,6 @@
 package com.bobrek.proyectofinal.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,12 +49,9 @@ public class ClientController {
 	// Get client by email and password\
 	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping("/client/login")
-	public ResponseEntity<Map<String, Long>> getClientByEmailEqualsAndPasswordEquals(@RequestBody Client client) {
-		Client c = clientRepository.findByEmailAndPassword(client.getEmail(), client.getPassword())
+	public Client getClientByEmail(@RequestBody Client client) {
+		return clientRepository.findByEmail(client.getEmail())
 				.orElseThrow(() -> new ResourceNotFoundException("Client not exist"));
-		Map<String, Long> response = new HashMap<>();
-		response.put("id", c.getId());
-		return ResponseEntity.ok(response);
 	}
 
 	// Update client

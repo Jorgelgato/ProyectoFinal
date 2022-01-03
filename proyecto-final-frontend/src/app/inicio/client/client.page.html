@@ -11,7 +11,7 @@
   <br>
   <ion-title>Tus cuentas:</ion-title>
   <ion-infinite-scroll>
-      <ion-card *ngFor="let account of accounts" href="#" class="ion-activated">
+      <ion-card *ngFor="let account of accounts" routerLink="./movimientos" (click)="saveAccount(account)" class="ion-activated">
         <ion-card-header>
           <ion-card-subtitle> {{account.number}}</ion-card-subtitle>
           <ion-card-title>Cuenta {{account.type}}</ion-card-title>

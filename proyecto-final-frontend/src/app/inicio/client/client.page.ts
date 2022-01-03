@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from '../account/account';
 import { AccountService } from '../account/account.service';
+import { OperationsService } from './operations/operations.service';
 
 @Component({
   selector: 'app-client',
@@ -9,10 +10,12 @@ import { AccountService } from '../account/account.service';
 })
 export class ClientPage implements OnInit {
 
-  accounts: Account[]/* = [{ id: 1, type: 0, number: "820833931420", created: "31/12/2021", status: 0, amount: 1600000 },
-  { id: 1, type: 0, number: "821202649628", created: "31/12/2021", status: 0, amount: 1200000 }]*/
+  accounts: Account[]
 
-  constructor(private accountService: AccountService) { }
+  constructor(
+    private accountService: AccountService,
+    private operationsService: OperationsService
+  ) { }
 
   ngOnInit(): void {
   } 
@@ -25,6 +28,10 @@ export class ClientPage implements OnInit {
     this.accountService.getAccountList().subscribe(data => {
       this.accounts = data;
     });
+  }
+
+  saveAccount(account: Account){
+    this.operationsService.account = account;
   }
 
 }

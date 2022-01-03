@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'modificar',
     loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule)
+  },
+  {
+    path: 'movimientos',
+    loadChildren: () => import('../client/operations/operations.module').then( m => m.OperationsPageModule)
   }
 ];
 

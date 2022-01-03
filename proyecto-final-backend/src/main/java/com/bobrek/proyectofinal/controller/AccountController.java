@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,12 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bobrek.proyectofinal.exception.ResourceNotFoundException;
 import com.bobrek.proyectofinal.model.Account;
 import com.bobrek.proyectofinal.model.AccountDisplay;
-import com.bobrek.proyectofinal.model.Client;
 import com.bobrek.proyectofinal.repository.AccountRepository;
-import com.bobrek.proyectofinal.repository.ClientRepository;
 
 @RestController
 @RequestMapping("/api/v1/")

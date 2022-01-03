@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Client } from '../inicio/client/client';
 import { ClientService } from '../inicio/client/client.service';
 import { AlertService } from '../services/alert.service';
+import { EncryptService } from '../services/encrypt.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -18,6 +19,7 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private clientService: ClientService,
+    private encrypt: EncryptService,
     private alert: AlertService
   ) {
     this.formLogin = this.fb.group({
@@ -32,7 +34,7 @@ export class LoginPage implements OnInit {
   login() {
 
     var values = this.formLogin.value
-    this.client = values;
+    this.client.email = values.email;
 
     if (this.formLogin.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
@@ -40,11 +42,15 @@ export class LoginPage implements OnInit {
     }
 
     this.clientService.loginClient(this.client).subscribe(data => {
-      localStorage.setItem('logged', '1')
-      localStorage.setItem('id', data.id);
-      this.router.navigate(['/inicio'])
+      if (this.encrypt.compare(values.password, data.password)) {
+        localStorage.setItem('logged', '1')
+        localStorage.setItem('id', data.id);
+        this.router.navigate(['/inicio'])
+      } else {
+        this.alert.presentErrorToast("Contraseña incorrecta");
+      }
     }, err => {
-      this.alert.presentErrorToast("Usuario o contraseña incorrecto")
+      this.alert.presentErrorToast("Usuario no existe");
     });
   }
 
