@@ -82,13 +82,12 @@ export class NewPage implements OnInit {
     this.operationsService.createOperation(this.operation).subscribe(data => {
       this.router.navigate(['/inicio/cliente/movimientos']);
     }, err => { this.alert.presentErrorToast("Error del servidor") });
-
   }
 
   deposit() {
     this.accountService.accountAddAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
-      this.alert.presentSuccessToast("Depósito realizado")
       this.createOperation()
+      this.alert.presentSuccessToast("Depósito realizado")
     }, err => {
       this.alert.presentErrorToast("Error del servidor")
     });
@@ -100,8 +99,8 @@ export class NewPage implements OnInit {
       return;
     }
     this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
-      this.alert.presentSuccessToast("Retiro realizado");
       this.createOperation();
+      this.alert.presentSuccessToast("Retiro realizado");
     }, err => {
       this.alert.presentErrorToast("Error del servidor");
     });
@@ -112,16 +111,25 @@ export class NewPage implements OnInit {
       this.alert.presentErrorToast("Saldo insuficiente");
       return;
     }
-    this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
-      this.createOperation();
-      this.accountService.accountAddAmount(this.operation.idDestination, this.operation.amount).subscribe(data => {
-        this.operation.idAccount = this.operation.idDestination;
-        this.createOperation();
-      }, err => {
-        this.alert.presentErrorToast("Error del servidor");
-      });
+    this.accountService.getAccount(this.operation.idDestination).subscribe(data => {
+      if (data.status == 2) {
+        this.alert.presentErrorToast("La cuenta destino no existe");
+      } else {
+        this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
+          this.createOperation();
+          this.accountService.accountAddAmount(this.operation.idDestination, this.operation.amount).subscribe(data => {
+            this.operation.idAccount = this.operation.idDestination;
+            this.createOperation();
+            this.alert.presentSuccessToast("Transferencia ralizada");
+          }, err => {
+            this.alert.presentErrorToast("Error del servidor");
+          });
+        }, err => {
+          this.alert.presentErrorToast("Error del servidor");
+        });
+      }
     }, err => {
-      this.alert.presentErrorToast("Error del servidor");
+      this.alert.presentErrorToast("La cuenta destino no existe");
     });
   }
 

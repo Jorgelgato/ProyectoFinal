@@ -43,6 +43,14 @@ public class AccountController {
 		return accountRepository.findAll();
 	}
 
+	// Get account by id
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping("/account/{id}")
+	public ResponseEntity<Account> getClientById(@PathVariable Long id) {
+		return ResponseEntity
+				.ok(accountRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Account not exist")));
+	}
+
 	// Create account
 	@CrossOrigin(origins = "http://localhost:8100")
 	@PostMapping("/account")

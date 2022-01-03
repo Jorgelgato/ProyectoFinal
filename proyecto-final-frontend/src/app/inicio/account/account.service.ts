@@ -17,6 +17,10 @@ export class AccountService {
     return this.httpClient.get<Account[]>(`${this.baseUrl}/client/${localStorage.getItem('id')}`,)
   }
 
+  getAccount(id: number): Observable<Account>{
+    return this.httpClient.get<Account>(`${this.baseUrl}/${id}`)
+  }
+
   createAccount(account: Account): Observable<Object>{
     return this.httpClient.post<Object>(`${this.baseUrl}`, account)
   }
