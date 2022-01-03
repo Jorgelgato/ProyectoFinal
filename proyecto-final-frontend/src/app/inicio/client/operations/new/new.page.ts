@@ -115,6 +115,7 @@ export class NewPage implements OnInit {
     this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
       this.createOperation();
       this.accountService.accountAddAmount(this.operation.idDestination, this.operation.amount).subscribe(data => {
+        this.operation.idAccount = this.operation.idDestination;
         this.createOperation();
       }, err => {
         this.alert.presentErrorToast("Error del servidor");

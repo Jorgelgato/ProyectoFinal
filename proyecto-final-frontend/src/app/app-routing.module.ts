@@ -27,11 +27,11 @@ const routes: Routes = [
   {
     path: 'account',
     loadChildren: () => import('./inicio/account/account.module').then( m => m.AccountPageModule)
-  }
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, onSameUrlNavigation: 'reload' },)
   ],
   exports: [RouterModule]
 })

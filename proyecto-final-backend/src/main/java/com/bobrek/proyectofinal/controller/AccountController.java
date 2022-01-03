@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bobrek.proyectofinal.exception.ResourceNotFoundException;
 import com.bobrek.proyectofinal.model.Account;
-import com.bobrek.proyectofinal.model.AccountDisplay;
 import com.bobrek.proyectofinal.model.Client;
 import com.bobrek.proyectofinal.repository.AccountRepository;
 
@@ -49,14 +48,8 @@ public class AccountController {
 	// Get accounts by client id
 	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping("/account/client/{id}")
-	public List<AccountDisplay> getAccountsByClientId(@PathVariable Long id) {
-		List<Object[]> adlist = accountRepository.findClientAccounts(id);
-		List<AccountDisplay> ad = new ArrayList<AccountDisplay>();
-		for (Object[] data : adlist) {
-			ad.add(new AccountDisplay((BigInteger) data[0], (BigInteger) data[1], (String) data[2], (int) data[3],
-					(Date) data[4], (byte) data[5], (double) data[6]));
-		}
-		return ad;
+	public List<Account> getAccountsByClientId(@PathVariable Long id) {
+		return accountRepository.findClientAccounts(id);
 	}
 
 	// Account add amount
@@ -68,7 +61,6 @@ public class AccountController {
 		acc.setAmount(acc.getAmount() + account.getAmount());
 		return ResponseEntity.ok(accountRepository.save(acc));
 	}
-	
 
 	// Account subtract amount
 	@CrossOrigin(origins = "http://localhost:8100")
@@ -76,10 +68,21 @@ public class AccountController {
 	public ResponseEntity<Account> subtractAmount(@RequestBody Account account) {
 		Account acc = accountRepository.findById(account.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
-		if(acc.getAmount() - account.getAmount() < 0) {
-	        return new ResponseEntity<Account>(HttpStatus.BAD_REQUEST);
+		if (acc.getAmount() - account.getAmount() < 0) {
+			return new ResponseEntity<Account>(HttpStatus.BAD_REQUEST);
 		}
 		acc.setAmount(acc.getAmount() - account.getAmount());
+		return ResponseEntity.ok(accountRepository.save(acc));
+	}
+	
+
+	// Cancel account
+	@CrossOrigin(origins = "http://localhost:8100")
+	@PutMapping("/account/cancel")
+	public ResponseEntity<Account> cancelAmount(@RequestBody Account account) {
+		Account acc = accountRepository.findById(account.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
+		acc.setStatus(account.getStatus());
 		return ResponseEntity.ok(accountRepository.save(acc));
 	}
 

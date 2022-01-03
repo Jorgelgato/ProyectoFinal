@@ -11,7 +11,7 @@ import com.bobrek.proyectofinal.model.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-	@Query(value = "SELECT a.id, a.idclient, t.type, a.number, a.created, a.status, a.amount FROM accounts a, accounttype t WHERE a.idclient = 1 AND a.type = t.id ORDER BY a.id;", nativeQuery = true)
-	List<Object[]> findClientAccounts(Long idclient);
+	@Query(value = "SELECT a.id, a.idclient, a.type, a.number, a.created, a.status, a.amount FROM accounts a WHERE a.idclient = ? AND a.status <> 2 ORDER BY a.id;", nativeQuery = true)
+	List<Account> findClientAccounts(Long idclient);
 
 }
