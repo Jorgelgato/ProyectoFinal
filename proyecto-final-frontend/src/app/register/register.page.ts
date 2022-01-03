@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -22,7 +23,8 @@ export class RegisterPage implements OnInit {
     private fb: FormBuilder, 
     private alert: AlertService,
     private encrypt: EncryptService,
-    private router: Router
+    private router: Router,
+    private datePipe: DatePipe 
     ) {
     this.formRegister = this.fb.group({
       'idType': new FormControl("", Validators.required),
@@ -40,18 +42,14 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
-    var values = this.formRegister.value
-
     if (this.formRegister.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
       return;
     }
+    var values = this.formRegister.value
+    var currDate = new Date();
     this.client = values;
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    this.client.created = yyyy + '-' + mm + '-' + dd;
+    this.client.created = this.datePipe.transform(currDate, 'yyyy-MM-dd')
     this.client.password = this.encrypt.encrypt(values.password)
     this.client.active = true;
     this.saveClient();

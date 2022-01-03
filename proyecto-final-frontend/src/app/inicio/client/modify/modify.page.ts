@@ -45,18 +45,15 @@ export class ModifyPage implements OnInit {
   }
 
   modify() {
-    var values = this.formModify.value
-
     if (this.formModify.invalid) {
       this.alert.presentAlert('Ingrese su contraseña actual');
       return;
     }
-
+    var values = this.formModify.value
     if (!this.encrypt.compare(values.oldPassword, this.client.password)) {
       this.alert.presentAlert('Contraseña incorrecta');
       return;
     }
-
     if (values.idType) {
       this.client.idType = values.idType
     }

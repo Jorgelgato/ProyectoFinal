@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Operation } from './operation';
 import { OperationsService } from './operations.service';
 
@@ -12,15 +13,21 @@ export class OperationsPage implements OnInit {
   operations: Operation[];
 
   constructor(
-    private operationsService: OperationsService) { }
+    private operationsService: OperationsService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
   }
-  
+
   ionViewDidEnter(): void {
-    this.operationsService.getOperations().subscribe(data => {
-      this.operations = data;
-    });
+    if (!this.operationsService.account) {
+      this.router.navigate(['/inicio'])
+    } else {
+      this.operationsService.getOperations().subscribe(data => {
+        this.operations = data;
+      });
+    }
   }
 
 }

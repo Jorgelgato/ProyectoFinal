@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,11 +39,17 @@ public class OperationController {
 	public List<OperationDisplay> getByAccountc(@PathVariable Long idaccount) {
 		List<Object[]> operations = operationRepository.findByAccount(idaccount);
 		List<OperationDisplay> od = new ArrayList<OperationDisplay>();
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
 		for (Object[] data : operations) {
 			od.add(new OperationDisplay((BigInteger) data[0], (BigInteger) data[1], new SimpleDateFormat("yyyy-MM-dd").format(data[2]), (String) data[3], (String) data[4], (double) data[5], (String) data[6]));
 		}
 		return od;
+	}
+	
+	// Create operation
+	@CrossOrigin(origins = "http://localhost:8100")
+	@PostMapping("/operation")
+	public Operation createOperation(@RequestBody Operation operation) {
+		return operationRepository.save(operation);
 	}
 	
 }

@@ -9,16 +9,8 @@ const routes: Routes = [
     component: OperationsPage
   },
   {
-    path: 'deposito',
-    loadChildren: () => import('../deposit/deposit.module').then( m => m.DepositPageModule)
-  },
-  {
-    path: 'retiro',
-    loadChildren: () => import('./withdrawal/withdrawal.module').then( m => m.WithdrawalPageModule)
-  },
-  {
-    path: 'transferencia',
-    loadChildren: () => import('./transfer/transfer.module').then( m => m.TransferPageModule)
+    path: 'nuevo',
+    loadChildren: () => import('./new/new.module').then( m => m.NewPageModule)
   },
 ];
 

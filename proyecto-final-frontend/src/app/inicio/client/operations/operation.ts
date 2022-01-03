@@ -1,6 +1,6 @@
 export class Operation {
     id?: number;
-    idaccount?: number;
+    idAccount?: number;
     date?: string;
     operationType?: number;
     description?: string;

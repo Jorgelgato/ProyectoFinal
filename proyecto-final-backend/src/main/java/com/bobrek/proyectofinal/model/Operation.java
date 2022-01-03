@@ -21,7 +21,7 @@ public class Operation {
 	private long idAccount;
 	
 	@Column(name = "date")
-	private Date date;
+	private String date;
 
 	@Column(name = "operationtype")
 	private int operationType;
@@ -39,7 +39,7 @@ public class Operation {
 
 	}
 
-	public Operation(long id, long idAccount, Date date, int operationType, String description, double amount,
+	public Operation(long id, long idAccount, String date, int operationType, String description, double amount,
 			int credit) {
 		super();
 		this.id = id;
@@ -67,11 +67,11 @@ public class Operation {
 		this.idAccount = idAccount;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

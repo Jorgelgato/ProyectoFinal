@@ -19,7 +19,7 @@ export class AccountPage implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
-    private alert: AlertService,
+    private alert: AlertService
   ) {
     this.formAccount = this.fb.group({
       'type': new FormControl("", Validators.required),
@@ -30,14 +30,12 @@ export class AccountPage implements OnInit {
   ngOnInit() {
   }
 
-  createAccount() {
-    var values = this.formAccount.value
-
-
+  createAccount() {    
     if (this.formAccount.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
       return;
     }
+    var values = this.formAccount.value
     this.account = values;
     this.account.idClient = +localStorage.getItem('id');
     var today = new Date();

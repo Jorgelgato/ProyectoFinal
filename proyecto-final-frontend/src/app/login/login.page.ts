@@ -32,15 +32,12 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-
-    var values = this.formLogin.value
-    this.client.email = values.email;
-
     if (this.formLogin.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
       return;
     }
-
+    var values = this.formLogin.value
+    this.client.email = values.email;
     this.clientService.loginClient(this.client).subscribe(data => {
       if (this.encrypt.compare(values.password, data.password)) {
         localStorage.setItem('logged', '1')
