@@ -25,5 +25,8 @@
           </ion-item>
         </ion-card-content>
       </ion-card>
+      <div *ngIf="accounts?.length == 0">
+        <h1 class="ion-text-center">No existen cuentas</h1>
+      </div>
   </ion-infinite-scroll>
 </ion-content>

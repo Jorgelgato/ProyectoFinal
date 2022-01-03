@@ -23,9 +23,9 @@ export class NewPage implements OnInit {
   account: Account = new Account();
 
   constructor(
+    public operationsService: OperationsService,
     private fb: FormBuilder,
     private datePipe: DatePipe,
-    private operationsService: OperationsService,
     private accountService: AccountService,
     private router: Router,
     private alert: AlertService

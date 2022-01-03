@@ -98,18 +98,16 @@ export class ModifyPage implements OnInit {
 
   delete() {
     this.accountService.getClientAccountList().subscribe(data => {
-      console.log(data)
       if (data.length > 0) {
         this.alert.presentAlert("Tiene productos vigentes");
-        return;
+      } else {
+        this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
+          if (res.data) {
+            this.deleteClient();
+          }
+        });
       }
     });
-
-    this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
-      if (res.data) {
-        this.deleteClient();
-      }
-    })
   }
 
   deleteClient() {
