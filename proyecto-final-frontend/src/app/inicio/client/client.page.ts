@@ -4,6 +4,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
 import { Account } from '../account/account';
 import { AccountService } from '../account/account.service';
+import { AccountType } from '../account/accounttype';
 import { OperationsService } from './operations/operations.service';
 
 @Component({
@@ -14,6 +15,7 @@ import { OperationsService } from './operations/operations.service';
 export class ClientPage implements OnInit {
 
   accounts: Account[]
+  types: AccountType[]
 
   constructor(
     private accountService: AccountService,
@@ -26,17 +28,36 @@ export class ClientPage implements OnInit {
   ngOnInit(): void {
   } 
   
+  ionViewWillEnter(): void {
+    this.getAccountTypes();
+  }
+  
   ionViewDidEnter(): void {
-    this.accounts = null;
     this.getAccountList();
   }
 
   private getAccountList() {
+    this.accounts = null;
     this.accountService.getClientAccountList().subscribe(data => {
       this.accounts = data;
     });
   }
 
+  private getAccountTypes() {
+    this.types = null;
+    this.accountService.getAccountTypes().subscribe(data => {
+      this.types = data;
+    });
+  }
+
+  typeToString(type: number): string {
+    for (let types of this.types) {
+      if (type == types.id) {
+        return types.type;
+      }
+    }
+  }
+ 
   saveAccount(account: Account){
     this.operationsService.account = account;
     this.router.navigate(["inicio/cliente/movimientos"])

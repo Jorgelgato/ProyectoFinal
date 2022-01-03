@@ -13,5 +13,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
 	@Query(value = "SELECT a.id, a.idclient, a.type, a.number, a.created, a.status, a.amount FROM accounts a WHERE a.idclient = ? AND a.status <> 2 ORDER BY a.id;", nativeQuery = true)
 	List<Account> findClientAccounts(Long idclient);
+	
+	@Query(value = "Select id, type from accounttype", nativeQuery = true)
+	List<Object[]> findAccountTypes();
 
 }

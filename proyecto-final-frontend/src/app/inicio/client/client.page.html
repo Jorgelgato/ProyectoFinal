@@ -14,7 +14,7 @@
       <ion-card *ngFor="let account of accounts" (click)="saveAccount(account)" class="ion-activated" class="pointer">
         <ion-card-header>
           <ion-card-subtitle> {{account.id}}</ion-card-subtitle>
-          <ion-card-title>Cuenta {{account.type}}</ion-card-title>
+          <ion-card-title>Cuenta {{typeToString(account.type)}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-item>

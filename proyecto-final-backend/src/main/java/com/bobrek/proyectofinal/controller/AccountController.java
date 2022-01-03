@@ -4,7 +4,12 @@ import java.math.BigInteger;
 import java.net.http.HttpHeaders;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +89,21 @@ public class AccountController {
 				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
 		acc.setStatus(account.getStatus());
 		return ResponseEntity.ok(accountRepository.save(acc));
+	}
+	
+
+	// Account types
+	@CrossOrigin(origins = "http://localhost:8100")
+	@GetMapping("/account/types")
+	public List<Map<String, Object>> accountTypes() {
+		List<Map<String, Object>> response = new ArrayList<Map<String,Object>>();
+		for (Object[] data : accountRepository.findAccountTypes()) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("id", data[0]);
+			map.put("type", data[1]);
+			response.add(map);
+		}
+		return response;
 	}
 
 }

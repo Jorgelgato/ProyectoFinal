@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Account } from './account';
+import { AccountType } from './accounttype';
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +42,11 @@ export class AccountService {
 
   toggleAccount(account: Account): Observable<Object>{
     account.status = account.status ? 0 : 1
-    console.log(account)
     return this.httpClient.put<Object>(`${this.baseUrl}/status`, account)
+  }
+
+  getAccountTypes(): Observable<AccountType[]>{
+    return this.httpClient.get<AccountType[]>(`${this.baseUrl}/types`)
   }
 
 }
