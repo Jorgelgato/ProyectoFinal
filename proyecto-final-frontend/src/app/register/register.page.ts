@@ -42,15 +42,20 @@ export class RegisterPage implements OnInit {
   }
 
   register() {
+    var values = this.formRegister.value
+    this.client = values;
     if (this.formRegister.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
       return;
     }
-    var values = this.formRegister.value
+    if (values.password == values.confirmPassword) {
+      this.client.password = this.encrypt.encrypt(values.password)
+    } else {
+      this.alert.presentAlert('Las contraseñas no coinciden');
+      return;
+    }
     var currDate = new Date();
-    this.client = values;
     this.client.created = this.datePipe.transform(currDate, 'yyyy-MM-dd')
-    this.client.password = this.encrypt.encrypt(values.password)
     this.client.active = true;
     this.saveClient();
   }

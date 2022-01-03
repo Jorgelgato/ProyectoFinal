@@ -74,12 +74,14 @@ export class ModifyPage implements OnInit {
     if (values.bornDate) {
       this.client.bornDate = values.bornDate
     }
-    if (values.password && values.confirmPassword && (values.password == values.confirmPassword)) {
+    if (values.password && values.confirmPassword) {
+      if (values.password == values.confirmPassword) {
         this.client.password = this.encrypt.encrypt(values.password)
-    } else {
-      this.alert.presentAlert('Las contraseñas no coinciden');
-      return;
-    }
+      } else {
+        this.alert.presentAlert('Las contraseñas no coinciden');
+        return;
+      }
+    } 
     this.updateClient();
   }
 

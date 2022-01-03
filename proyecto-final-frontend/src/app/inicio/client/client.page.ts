@@ -14,8 +14,8 @@ import { OperationsService } from './operations/operations.service';
 })
 export class ClientPage implements OnInit {
 
-  accounts: Account[]
-  types: AccountType[]
+  accounts?: Account[]
+  types?: AccountType[]
 
   constructor(
     private accountService: AccountService,
@@ -37,14 +37,12 @@ export class ClientPage implements OnInit {
   }
 
   private getAccountList() {
-    this.accounts = null;
     this.accountService.getClientAccountList().subscribe(data => {
       this.accounts = data;
     });
   }
 
   private getAccountTypes() {
-    this.types = null;
     this.accountService.getAccountTypes().subscribe(data => {
       this.types = data;
     });

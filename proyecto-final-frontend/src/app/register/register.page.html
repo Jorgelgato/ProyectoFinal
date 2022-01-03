@@ -13,10 +13,13 @@
       <ion-card-title>Registrar usuario</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formRegister">
+      <form [formGroup]="formRegister">        
         <ion-item>
-          <ion-label position="floating">Tipo de identificación</ion-label>
-          <ion-input formControlName="idType"></ion-input>
+          <ion-label>Tipo de identificación</ion-label>
+          <ion-select formControlName="idType" interface="popover">
+            <ion-select-option value="CC">CC</ion-select-option>
+            <ion-select-option value="CE">CE</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Número de identificación</ion-label>
