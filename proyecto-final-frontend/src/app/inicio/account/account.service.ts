@@ -34,4 +34,10 @@ export class AccountService {
     return this.httpClient.put<Object>(`${this.baseUrl}/subtract`, account)
   }
 
+  cancelAccount(account: Account): Observable<Object>{
+    account.status = 2;
+    console.log(account)
+    return this.httpClient.put<Object>(`${this.baseUrl}/cancel`, account)
+  }
+
 }

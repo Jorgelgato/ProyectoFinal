@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { EncryptService } from 'src/app/services/encrypt.service';
+import { AccountService } from '../../account/account.service';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 
@@ -22,6 +23,7 @@ export class ModifyPage implements OnInit {
     private encrypt: EncryptService,
     private fb: FormBuilder,
     private alert: AlertService,
+    private accountService: AccountService,
     private router: Router
   ) {
     this.formModify = this.fb.group({
@@ -95,23 +97,23 @@ export class ModifyPage implements OnInit {
   }
 
   delete() {
+    this.accountService.getClientAccountList().subscribe(data => {
+      console.log(data)
+      if (data.length > 0) {
+        this.alert.presentAlert("Tiene productos vigentes");
+        return;
+      }
+    });
+
     this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
       if (res.data) {
-        this.validateClient();
+        this.deleteClient();
       }
     })
   }
 
-  validateClient() {
-    if (true) {
-      this.client.active = false;
-      this.deleteClient();
-    }
-  }
-
   deleteClient() {
-    console.log(this.client)
-    this.clientService.updateClient(this.client).subscribe(data => {
+    this.clientService.deleteClient(this.client).subscribe(data => {
       this.alert.presentSuccessToast("Cliente eliminado exitosamente")
       localStorage.removeItem('logged')
       localStorage.removeItem('id')

@@ -13,12 +13,15 @@
   <ion-infinite-scroll>
       <ion-card *ngFor="let account of accounts" (click)="saveAccount(account)" class="ion-activated" class="pointer">
         <ion-card-header>
-          <ion-card-subtitle> {{account.number}}</ion-card-subtitle>
+          <ion-card-subtitle> {{account.id}}</ion-card-subtitle>
           <ion-card-title>Cuenta {{account.type}}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-item>
             <ion-label>Saldo disponible: ${{account.amount}}</ion-label>
+            <ion-button fill="clear" slot="end" (click)="options($event, account)" size="big">
+              <ion-icon slot="icon-only" name="settings"></ion-icon>
+            </ion-button>
           </ion-item>
         </ion-card-content>
       </ion-card>

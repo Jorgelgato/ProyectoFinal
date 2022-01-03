@@ -27,6 +27,7 @@ export class ClientPage implements OnInit {
   } 
   
   ionViewDidEnter(): void {
+    this.accounts = null;
     this.getAccountList();
   }
 
@@ -40,5 +41,58 @@ export class ClientPage implements OnInit {
     this.operationsService.account = account;
     this.router.navigate(["inicio/cliente/movimientos"])
   }
+
+  options(event, account: Account) {
+    event.stopPropagation();
+    this.presentActionSheet(account);
+  }
+
+  async presentActionSheet(account: Account) {
+    if (account.status == 0) {
+      
+    }
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Opciones de cuenta',
+      cssClass: 'my-custom-class',
+      buttons: [{
+        text: 'Estado de cuenta',
+        icon: 'build',
+        handler: () => {
+          //TODO: modify account's status
+        }
+      }, {
+        text: 'Cancelar cuenta',
+        icon: 'trash',
+        handler: () => {
+          if (account.amount > 0) {
+            this.alert.presentAlert("Esta cuenta aún tiene saldo");
+          } else {
+            this.alert.presentAlertConfirm('¿Seguro que desea cancelar esta cuenta?').then((res) => {
+              if (res.data) {
+                this.accountService.cancelAccount(account).subscribe(data => {
+                  this.alert.presentSuccessToast("Cuenta cancelada exitósamente");
+                  this.reload();
+                }, err => { this.alert.presentErrorToast("Error del servidor") });
+              }
+            })
+          }
+        }
+      }, {
+        text: 'Cancelar',
+        icon: 'close'
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  reload() {
+    window.location.reload();
+    /*
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+    */
+}
 
 }

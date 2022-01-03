@@ -28,4 +28,8 @@ export class ClientService {
     return this.httpClient.put<Client>(`${this.baseUrl}/${localStorage.getItem('id')}`, client)
   }
 
+  deleteClient(client: Client): Observable<Client>{
+    client.active = false;
+    return this.httpClient.put<Client>(`${this.baseUrl}/${localStorage.getItem('id')}`, client)
+  }
 }
