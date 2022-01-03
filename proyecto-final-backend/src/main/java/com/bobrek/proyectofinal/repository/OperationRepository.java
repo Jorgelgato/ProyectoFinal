@@ -11,7 +11,7 @@ import com.bobrek.proyectofinal.model.Operation;
 @Repository
 public interface OperationRepository extends JpaRepository<Operation, Long> {
 
-	@Query(value = "SELECT o.id, o.idaccount, o.date, t.typeo, o.description, o.amount, c.typec FROM operations o, operationtype t, operationcredit c WHERE o.operationtype = t.id AND o.credit = c.id;", nativeQuery = true)
+	@Query(value = "SELECT o.id, o.idaccount, o.date, t.typeo, o.description, o.amount, c.typec FROM operations o, operationtype t, operationcredit c WHERE o.idaccount = ? AND o.operationtype = t.id AND o.credit = c.id;", nativeQuery = true)
 	List<Object[]> findByAccount(Long idaccount);
 
 }

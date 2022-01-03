@@ -23,7 +23,7 @@ public class OperationDisplay {
 	private BigInteger idAccount;
 
 	@Column(name = "date")
-	private Timestamp date;
+	private String date;
 
 	@Column(name = "operationtype")
 	private String operationType;
@@ -41,7 +41,7 @@ public class OperationDisplay {
 
 	}
 
-	public OperationDisplay(BigInteger id, BigInteger idAccount, Timestamp date, String operationType,
+	public OperationDisplay(BigInteger id, BigInteger idAccount, String date, String operationType,
 			String description, double amount, String credit) {
 		super();
 		this.id = id;
@@ -69,11 +69,11 @@ public class OperationDisplay {
 		this.idAccount = idAccount;
 	}
 
-	public Timestamp getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

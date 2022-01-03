@@ -15,14 +15,12 @@ export class OperationsPage implements OnInit {
     private operationsService: OperationsService) { }
 
   ngOnInit() {
-    //console.log(this.operationsService.account)
   }
   
   ionViewDidEnter(): void {
     this.operationsService.getOperations().subscribe(data => {
       this.operations = data;
     });
-    this.operationsService.account
   }
 
 }

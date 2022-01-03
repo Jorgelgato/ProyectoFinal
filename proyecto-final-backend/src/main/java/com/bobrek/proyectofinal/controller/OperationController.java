@@ -1,7 +1,8 @@
 package com.bobrek.proyectofinal.controller;
 
 import java.math.BigInteger;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,8 +37,9 @@ public class OperationController {
 	public List<OperationDisplay> getByAccountc(@PathVariable Long idaccount) {
 		List<Object[]> operations = operationRepository.findByAccount(idaccount);
 		List<OperationDisplay> od = new ArrayList<OperationDisplay>();
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy.MM.dd hh:mm:ss");
 		for (Object[] data : operations) {
-			od.add(new OperationDisplay((BigInteger) data[0], (BigInteger) data[1], (Timestamp) data[2], (String) data[3], (String) data[4], (double) data[5], (String) data[6]));
+			od.add(new OperationDisplay((BigInteger) data[0], (BigInteger) data[1], new SimpleDateFormat("yyyy-MM-dd").format(data[2]), (String) data[3], (String) data[4], (double) data[5], (String) data[6]));
 		}
 		return od;
 	}
