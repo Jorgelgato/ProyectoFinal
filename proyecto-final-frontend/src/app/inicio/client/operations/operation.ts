@@ -6,4 +6,5 @@ export class Operation {
     description?: string;
     amount?: number;
     credit?: number;
+    idDestination?: number;
 }

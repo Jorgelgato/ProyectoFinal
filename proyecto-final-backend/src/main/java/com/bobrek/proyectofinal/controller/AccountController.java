@@ -1,21 +1,28 @@
 package com.bobrek.proyectofinal.controller;
 
 import java.math.BigInteger;
+import java.net.http.HttpHeaders;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bobrek.proyectofinal.exception.ResourceNotFoundException;
 import com.bobrek.proyectofinal.model.Account;
 import com.bobrek.proyectofinal.model.AccountDisplay;
+import com.bobrek.proyectofinal.model.Client;
 import com.bobrek.proyectofinal.repository.AccountRepository;
 
 @RestController
@@ -38,17 +45,42 @@ public class AccountController {
 	public Account createAccount(@RequestBody Account account) {
 		return accountRepository.save(account);
 	}
-	
+
 	// Get accounts by client id
 	@CrossOrigin(origins = "http://localhost:8100")
-	@GetMapping("/account/{id}")
+	@GetMapping("/account/client/{id}")
 	public List<AccountDisplay> getAccountsByClientId(@PathVariable Long id) {
 		List<Object[]> adlist = accountRepository.findClientAccounts(id);
 		List<AccountDisplay> ad = new ArrayList<AccountDisplay>();
 		for (Object[] data : adlist) {
-			ad.add(new AccountDisplay((BigInteger) data[0], (BigInteger) data[1], (String) data[2], (int) data[3], (Date) data[4], (String) data[5], (double) data[6]));
+			ad.add(new AccountDisplay((BigInteger) data[0], (BigInteger) data[1], (String) data[2], (int) data[3],
+					(Date) data[4], (byte) data[5], (double) data[6]));
 		}
 		return ad;
+	}
+
+	// Account add amount
+	@CrossOrigin(origins = "http://localhost:8100")
+	@PutMapping("/account/add")
+	public ResponseEntity<Account> addAmount(@RequestBody Account account) {
+		Account acc = accountRepository.findById(account.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
+		acc.setAmount(acc.getAmount() + account.getAmount());
+		return ResponseEntity.ok(accountRepository.save(acc));
+	}
+	
+
+	// Account subtract amount
+	@CrossOrigin(origins = "http://localhost:8100")
+	@PutMapping("/account/subtract")
+	public ResponseEntity<Account> subtractAmount(@RequestBody Account account) {
+		Account acc = accountRepository.findById(account.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
+		if(acc.getAmount() - account.getAmount() < 0) {
+	        return new ResponseEntity<Account>(HttpStatus.BAD_REQUEST);
+		}
+		acc.setAmount(acc.getAmount() - account.getAmount());
+		return ResponseEntity.ok(accountRepository.save(acc));
 	}
 
 }

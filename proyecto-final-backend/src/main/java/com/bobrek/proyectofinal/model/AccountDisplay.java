@@ -31,7 +31,7 @@ public class AccountDisplay {
 	private Date created;
 
 	@Column(name = "status")
-	private String status;
+	private byte status;
 
 	@Column(name = "amount")
 	private double amount;
@@ -40,7 +40,7 @@ public class AccountDisplay {
 
 	}
 
-	public AccountDisplay(BigInteger id, BigInteger idClient, String type, int number, Date created, String status, double amount) {
+	public AccountDisplay(BigInteger id, BigInteger idClient, String type, int number, Date created, byte status, double amount) {
 		super();
 		this.id = id;
 		this.idClient = idClient;
@@ -91,11 +91,11 @@ public class AccountDisplay {
 		this.created = created;
 	}
 
-	public String getStatus() {
+	public byte getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(byte status) {
 		this.status = status;
 	}
 

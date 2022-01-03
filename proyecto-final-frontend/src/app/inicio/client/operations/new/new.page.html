@@ -14,7 +14,7 @@
       <form [formGroup]="formOperation">
         <ion-item>
           <ion-label>Tipo de movimiento</ion-label>
-          <ion-select formControlName="operationType" interface="popover">
+          <ion-select formControlName="operationType" interface="popover" (ionChange)="updateForm()">
             <ion-select-option [value]="0">Depósito</ion-select-option>
             <ion-select-option [value]="1">Retiro</ion-select-option>
             <ion-select-option [value]="2">Transferencia</ion-select-option>
@@ -34,6 +34,10 @@
             <ion-select-option [value]="0">Débito</ion-select-option>
             <ion-select-option [value]="1">Crédito</ion-select-option>
           </ion-select>
+        </ion-item>
+        <ion-item *ngIf="formOperation.value.operationType==2">
+          <ion-label position="floating">Cuenta destino</ion-label>
+          <ion-input formControlName="idDestination"></ion-input>
         </ion-item>
       </form>
       <br>
