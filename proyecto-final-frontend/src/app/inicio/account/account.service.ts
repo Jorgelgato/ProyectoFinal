@@ -36,8 +36,13 @@ export class AccountService {
 
   cancelAccount(account: Account): Observable<Object>{
     account.status = 2;
+    return this.httpClient.put<Object>(`${this.baseUrl}/status`, account)
+  }
+
+  toggleAccount(account: Account): Observable<Object>{
+    account.status = account.status ? 0 : 1
     console.log(account)
-    return this.httpClient.put<Object>(`${this.baseUrl}/cancel`, account)
+    return this.httpClient.put<Object>(`${this.baseUrl}/status`, account)
   }
 
 }

@@ -78,7 +78,7 @@ public class AccountController {
 
 	// Cancel account
 	@CrossOrigin(origins = "http://localhost:8100")
-	@PutMapping("/account/cancel")
+	@PutMapping("/account/status")
 	public ResponseEntity<Account> cancelAmount(@RequestBody Account account) {
 		Account acc = accountRepository.findById(account.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));

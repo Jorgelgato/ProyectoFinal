@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, IonicSafeString, ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -45,8 +45,8 @@ export class AlertService {
     let choice;
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
-      header: 'Confirmación!',
-      message: msg,
+      header: 'Confirmación',
+      message: new IonicSafeString(msg),
       buttons: [
         {
           text: 'Cancelar',

@@ -48,9 +48,6 @@ export class ClientPage implements OnInit {
   }
 
   async presentActionSheet(account: Account) {
-    if (account.status == 0) {
-      
-    }
     const actionSheet = await this.actionSheetController.create({
       header: 'Opciones de cuenta',
       cssClass: 'my-custom-class',
@@ -58,7 +55,23 @@ export class ClientPage implements OnInit {
         text: 'Estado de cuenta',
         icon: 'build',
         handler: () => {
-          //TODO: modify account's status
+          if (account.status) {
+            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="danger">inactiva</ion-text>.\n ¿Desea activarla?').then((res) => {
+              if (res.data) {
+                this.accountService.toggleAccount(account).subscribe(data => {
+                  this.alert.presentSuccessToast("Cuenta activada exitósamente");
+                }, err => { this.alert.presentErrorToast("Error del servidor") });
+              }
+            })
+          } else {
+            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="success">activa</ion-text>.\n ¿Desea desactivarla?').then((res) => {
+              if (res.data) {
+                this.accountService.toggleAccount(account).subscribe(data => {
+                  this.alert.presentSuccessToast("Cuenta desactivada exitósamente");
+                }, err => { this.alert.presentErrorToast("Error del servidor") });
+              }
+            })           
+          }
         }
       }, {
         text: 'Cancelar cuenta',
