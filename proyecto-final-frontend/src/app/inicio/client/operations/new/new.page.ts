@@ -34,7 +34,6 @@ export class NewPage implements OnInit {
       'operationType': new FormControl("", Validators.required),
       'description': new FormControl("", Validators.required),
       'amount': new FormControl("", Validators.required),
-      'credit': new FormControl("", Validators.required),
       'idDestination': new FormControl(),
     })
   }
@@ -86,6 +85,7 @@ export class NewPage implements OnInit {
 
   deposit() {
     this.accountService.accountAddAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
+      this.operation.credit = 1;
       this.createOperation()
       this.alert.presentSuccessToast("Depósito realizado")
     }, err => {
@@ -99,6 +99,7 @@ export class NewPage implements OnInit {
       return;
     }
     this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
+      this.operation.credit = 0;
       this.createOperation();
       this.alert.presentSuccessToast("Retiro realizado");
     }, err => {
@@ -116,8 +117,10 @@ export class NewPage implements OnInit {
         this.alert.presentErrorToast("La cuenta destino no existe");
       } else {
         this.accountService.accountSubtractAmount(this.operationsService.account.id, this.operation.amount).subscribe(data => {
+          this.operation.credit = 0;
           this.createOperation();
           this.accountService.accountAddAmount(this.operation.idDestination, this.operation.amount).subscribe(data => {
+            this.operation.credit = 1;
             this.operation.idAccount = this.operation.idDestination;
             this.createOperation();
             this.alert.presentSuccessToast("Transferencia ralizada");

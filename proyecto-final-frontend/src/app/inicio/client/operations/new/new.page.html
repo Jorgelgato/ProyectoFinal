@@ -26,13 +26,6 @@
           <ion-label position="floating">Monto</ion-label>
           <ion-input type="number" formControlName="amount"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label>Tipo de movimiento</ion-label>
-          <ion-select formControlName="credit" interface="popover">
-            <ion-select-option [value]="0">Débito</ion-select-option>
-            <ion-select-option [value]="1">Crédito</ion-select-option>
-          </ion-select>
-        </ion-item>
         <ion-item *ngIf="formOperation.value.operationType==2">
           <ion-label position="floating">Cuenta destino</ion-label>
           <ion-input type="number" formControlName="idDestination"></ion-input>
