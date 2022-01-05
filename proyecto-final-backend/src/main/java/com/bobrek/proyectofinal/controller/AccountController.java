@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bobrek.proyectofinal.exception.ResourceNotFoundException;
 import com.bobrek.proyectofinal.model.Account;
-import com.bobrek.proyectofinal.model.Client;
 import com.bobrek.proyectofinal.repository.AccountRepository;
 
 @RestController
@@ -105,7 +104,7 @@ public class AccountController {
 	@GetMapping("/account/types")
 	public List<Map<String, Object>> accountTypes() {
 		List<Map<String, Object>> response = new ArrayList<Map<String,Object>>();
-		for (Object[] data : accountRepository.findAccountTypes()) {
+		for (Object[] data : accountRepository.getAccountTypes()) {
 			Map<String, Object> map = new HashMap<>();
 			map.put("id", data[0]);
 			map.put("type", data[1]);

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Operation } from './operation';
 import { Account } from '../../account/account';
+import { OperationType } from './operationtype';
 
 @Injectable({
   providedIn: 'root'
@@ -23,4 +24,7 @@ export class OperationsService {
     return this.httpClient.post<Object>(`${this.baseUrl}`, operation)
   }
 
+  getOperationTypes(): Observable<OperationType[]>{
+    return this.httpClient.get<OperationType[]>(`${this.baseUrl}/types`)
+  }
 }

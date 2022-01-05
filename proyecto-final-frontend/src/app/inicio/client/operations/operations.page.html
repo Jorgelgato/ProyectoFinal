@@ -18,13 +18,13 @@
       <div class="card">
         <ion-card *ngFor="let operation of operations" class="ion-activated">
           <ion-card-header>
-            <ion-card-subtitle>{{operation.credit}}</ion-card-subtitle>
-            <ion-card-title>{{operation.operationType}}</ion-card-title>
+            <ion-card-title>{{typeToString(operation.operationType)}}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-item>
               <ion-label>{{operation.date}}</ion-label>
-              <ion-label slot="end">${{operation.amount}}</ion-label>
+              <ion-label *ngIf="operation.credit==0" color="danger" slot="end">-${{operation.amount}}</ion-label>
+              <ion-label *ngIf="operation.credit==1" color="success" slot="end">${{operation.amount}}</ion-label>
             </ion-item>
             <ion-item>
               <ion-label>{{operation.description}}</ion-label>

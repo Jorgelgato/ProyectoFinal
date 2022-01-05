@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Operation } from './operation';
 import { OperationsService } from './operations.service';
+import { OperationType } from './operationtype';
 
 @Component({
   selector: 'app-operations',
@@ -10,7 +11,8 @@ import { OperationsService } from './operations.service';
 })
 export class OperationsPage implements OnInit {
 
-  operations: Operation[];
+  operations?: Operation[];
+  types?: OperationType[];
 
   constructor(
     private operationsService: OperationsService,
@@ -18,6 +20,10 @@ export class OperationsPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter(): void {
+    this.getOperationTypes();
   }
 
   ionViewDidEnter(): void {
@@ -28,6 +34,21 @@ export class OperationsPage implements OnInit {
         this.operations = data;
       });
     }
+  }
+
+  
+  typeToString(type: number): string {
+    for (let types of this.types) {
+      if (type == types.id) {
+        return types.type;
+      }
+    }
+  }
+
+  private getOperationTypes() {
+    this.operationsService.getOperationTypes().subscribe(data => {
+      this.types = data;
+    });
   }
 
 }
