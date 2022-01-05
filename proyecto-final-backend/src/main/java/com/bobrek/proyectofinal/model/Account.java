@@ -22,9 +22,6 @@ public class Account {
 
 	@Column(name = "type")
 	private int type;
-	
-	@Column(name = "number")
-	private int number;
 
 	@Column(name = "created")
 	private Date created;
@@ -39,12 +36,11 @@ public class Account {
 
 	}
 
-	public Account(long id, long idClient, int type, int number, Date created, int status, double amount) {
+	public Account(long id, long idClient, int type, Date created, int status, double amount) {
 		super();
 		this.id = id;
 		this.idClient = idClient;
 		this.type = type;
-		this.number = number;
 		this.created = created;
 		this.status = status;
 		this.amount = amount;
@@ -72,14 +68,6 @@ public class Account {
 
 	public void setType(int type) {
 		this.type = type;
-	}
-
-	public int getNumber() {
-		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 
 	public Date getCreated() {

@@ -22,8 +22,7 @@ export class AccountPage implements OnInit {
     private alert: AlertService
   ) {
     this.formAccount = this.fb.group({
-      'type': new FormControl("", Validators.required),
-      'number': new FormControl("", Validators.required)
+      'type': new FormControl("", Validators.required)
     })
   }
 

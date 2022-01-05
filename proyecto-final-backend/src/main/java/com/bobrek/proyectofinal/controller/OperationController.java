@@ -1,8 +1,5 @@
 package com.bobrek.proyectofinal.controller;
 
-import java.math.BigInteger;
-import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bobrek.proyectofinal.model.Operation;
-import com.bobrek.proyectofinal.model.OperationDisplay;
 import com.bobrek.proyectofinal.repository.OperationRepository;
 
 @RestController
