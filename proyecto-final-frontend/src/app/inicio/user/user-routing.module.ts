@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ClientPage } from './client.page';
+import { UserPage } from './user.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ClientPage
+    component: UserPage
   },
   {
     path: 'modificar',
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'movimientos',
-    loadChildren: () => import('../client/operations/operations.module').then( m => m.OperationsPageModule)
+    loadChildren: () => import('./operations/operations.module').then( m => m.OperationsPageModule)
   }
 ];
 
@@ -22,4 +22,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ClientPageRoutingModule {}
+export class UserPageRoutingModule {}

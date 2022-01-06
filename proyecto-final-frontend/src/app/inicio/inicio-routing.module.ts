@@ -8,8 +8,8 @@ const routes: Routes = [
     component: InicioPage,
     children: [
       {
-        path: 'cliente',
-        loadChildren: () => import('./client/client.module').then(m => m.ClientPageModule)
+        path: 'usuario',
+        loadChildren: () => import('./user/user.module').then(m => m.UserPageModule)
       },
       {
         path: 'cuenta',
@@ -17,14 +17,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/inicio/cliente',
+        redirectTo: '/inicio/usuario',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/inicio/cliente',
+    redirectTo: '/inicio/usuario',
     pathMatch: 'full'
   }
 ];

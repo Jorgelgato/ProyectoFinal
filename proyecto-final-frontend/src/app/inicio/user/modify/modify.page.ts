@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { EncryptService } from 'src/app/services/encrypt.service';
 import { AccountService } from '../../account/account.service';
-import { Client } from '../client';
-import { ClientService } from '../client.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-modify',
@@ -14,12 +14,12 @@ import { ClientService } from '../client.service';
 })
 export class ModifyPage implements OnInit {
 
-  client: Client = new Client();
+  user: User = new User();
 
   formModify: FormGroup;
 
   constructor(
-    private clientService: ClientService,
+    private userService: UserService,
     private encrypt: EncryptService,
     private fb: FormBuilder,
     private alert: AlertService,
@@ -43,7 +43,7 @@ export class ModifyPage implements OnInit {
   }
 
   ionViewDidEnter(): void {
-    this.getClient();
+    this.getUser();
   }
 
   modify() {
@@ -52,69 +52,69 @@ export class ModifyPage implements OnInit {
       return;
     }
     var values = this.formModify.value
-    if (!this.encrypt.compare(values.oldPassword, this.client.password)) {
+    if (!this.encrypt.compare(values.oldPassword, this.user.password)) {
       this.alert.presentAlert('Contraseña incorrecta');
       return;
     }
     if (values.idType) {
-      this.client.idType = values.idType
+      this.user.idType = values.idType
     }
     if (values.idNumber) {
-      this.client.idNumber = values.idNumber
+      this.user.idNumber = values.idNumber
     }
     if (values.firstName) {
-      this.client.firstName = values.firstName
+      this.user.firstName = values.firstName
     }
     if (values.lastName) {
-      this.client.lastName = values.lastName
+      this.user.lastName = values.lastName
     }
     if (values.email) {
-      this.client.email = values.email
+      this.user.email = values.email
     }
     if (values.bornDate) {
-      this.client.bornDate = values.bornDate
+      this.user.bornDate = values.bornDate
     }
     if (values.password && values.confirmPassword) {
       if (values.password == values.confirmPassword) {
-        this.client.password = this.encrypt.encrypt(values.password)
+        this.user.password = this.encrypt.encrypt(values.password)
       } else {
         this.alert.presentAlert('Las contraseñas no coinciden');
         return;
       }
     } 
-    this.updateClient();
+    this.updateUser();
   }
 
-  getClient() {
-    this.clientService.getClient().subscribe(data => {
-      this.client = data;
+  getUser() {
+    this.userService.getUser().subscribe(data => {
+      this.user = data;
     });
   }
 
-  updateClient() {
-    this.clientService.updateClient(this.client).subscribe(data => {
-      this.alert.presentSuccessToast("Cliente modificado exitosamente")
+  updateUser() {
+    this.userService.updateUser(this.user).subscribe(data => {
+      this.alert.presentSuccessToast("Usuario modificado exitosamente")
       this.router.navigate(['/inicio'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 
   delete() {
-    this.accountService.getClientAccountList().subscribe(data => {
+    this.accountService.getUserAccountList().subscribe(data => {
       if (data.length > 0) {
         this.alert.presentAlert("Tiene productos vigentes");
       } else {
         this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
           if (res.data) {
-            this.deleteClient();
+            this.deleteUser();
           }
         });
       }
     });
   }
 
-  deleteClient() {
-    this.clientService.deleteClient(this.client).subscribe(data => {
-      this.alert.presentSuccessToast("Cliente eliminado exitosamente")
+  deleteUser() {
+    this.userService.deleteUser(this.user).subscribe(data => {
+      this.alert.presentSuccessToast("Usuario eliminado exitosamente")
       localStorage.removeItem('logged')
       localStorage.removeItem('id')
       this.router.navigate(['/login'])

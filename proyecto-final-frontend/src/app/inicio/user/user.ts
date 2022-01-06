@@ -1,4 +1,4 @@
-export class Client {
+export class User {
     idType?: number;
     idNumber?: number;
     lastName?: string;

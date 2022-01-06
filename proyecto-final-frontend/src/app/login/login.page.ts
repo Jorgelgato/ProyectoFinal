@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../inicio/client/client';
-import { ClientService } from '../inicio/client/client.service';
+import { User } from '../inicio/user/user';
+import { UserService } from '../inicio/user/user.service';
 import { AlertService } from '../services/alert.service';
 import { EncryptService } from '../services/encrypt.service';
 @Component({
@@ -13,12 +13,12 @@ import { EncryptService } from '../services/encrypt.service';
 export class LoginPage implements OnInit {
 
   formLogin: FormGroup;
-  client: Client = new Client();
+  user: User = new User();
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private clientService: ClientService,
+    private userService: UserService,
     private encrypt: EncryptService,
     private alert: AlertService
   ) {
@@ -37,8 +37,8 @@ export class LoginPage implements OnInit {
       return;
     }
     var values = this.formLogin.value
-    this.client.email = values.email;
-    this.clientService.loginClient(this.client).subscribe(data => {
+    this.user.email = values.email;
+    this.userService.loginUser(this.user).subscribe(data => {
       if (this.encrypt.compare(values.password, data.password)) {
         localStorage.setItem('logged', '1')
         localStorage.setItem('id', data.id);

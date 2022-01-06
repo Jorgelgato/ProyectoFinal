@@ -47,7 +47,7 @@ export class AccountPage implements OnInit {
   saveAccount(){
     this.accountService.createAccount(this.account).subscribe(data => {
       this.alert.presentSuccessToast("Cuenta creada exitósamente")
-      this.router.navigate(['/inicio/cliente'])
+      this.router.navigate(['/inicio/usuario'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 }

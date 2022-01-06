@@ -8,11 +8,11 @@ import { AccountType } from '../account/accounttype';
 import { OperationsService } from './operations/operations.service';
 
 @Component({
-  selector: 'app-client',
-  templateUrl: './client.page.html',
-  styleUrls: ['./client.page.scss'],
+  selector: 'app-user',
+  templateUrl: './user.page.html',
+  styleUrls: ['./user.page.scss'],
 })
-export class ClientPage implements OnInit {
+export class UserPage implements OnInit {
 
   accounts?: Account[]
   types?: AccountType[]
@@ -37,7 +37,7 @@ export class ClientPage implements OnInit {
   }
 
   private getAccountList() {
-    this.accountService.getClientAccountList().subscribe(data => {
+    this.accountService.getUserAccountList().subscribe(data => {
       this.accounts = data;
     });
   }
@@ -58,7 +58,7 @@ export class ClientPage implements OnInit {
  
   saveAccount(account: Account){
     this.operationsService.account = account;
-    this.router.navigate(["inicio/cliente/movimientos"])
+    this.router.navigate(["inicio/usuario/movimientos"])
   }
 
   options(event, account: Account) {

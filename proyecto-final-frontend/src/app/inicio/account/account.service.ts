@@ -13,8 +13,8 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getClientAccountList(): Observable<Account[]>{
-    return this.httpClient.get<Account[]>(`${this.baseUrl}/client/${localStorage.getItem('id')}`,)
+  getUserAccountList(): Observable<Account[]>{
+    return this.httpClient.get<Account[]>(`${this.baseUrl}/user/${localStorage.getItem('id')}`,)
   }
 
   getAccount(id: number): Observable<Account>{

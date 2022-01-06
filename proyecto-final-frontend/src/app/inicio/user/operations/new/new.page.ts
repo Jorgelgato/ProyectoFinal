@@ -5,8 +5,7 @@ import { Router } from '@angular/router';
 import { Account } from 'src/app/inicio/account/account';
 import { AccountService } from 'src/app/inicio/account/account.service';
 import { AlertService } from 'src/app/services/alert.service';
-import { Client } from '../../client';
-import { ClientService } from '../../client.service';
+import { User } from '../../user';
 import { Operation } from '../operation';
 import { OperationsService } from '../operations.service';
 
@@ -19,7 +18,7 @@ export class NewPage implements OnInit {
 
   formOperation: FormGroup;
   operation: Operation;
-  client: Client;
+  user: User;
   account: Account = new Account();
 
   constructor(
@@ -79,7 +78,7 @@ export class NewPage implements OnInit {
 
   createOperation() {
     this.operationsService.createOperation(this.operation).subscribe(data => {
-      this.router.navigate(['/inicio/cliente/movimientos']);
+      this.router.navigate(['/inicio/usuario/movimientos']);
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 

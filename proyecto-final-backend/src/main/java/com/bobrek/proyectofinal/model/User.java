@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "clients")
-public class Client {
+@Table(name = "users")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,12 +44,15 @@ public class Client {
 	@Column(name = "active")
 	private boolean active;
 
-	public Client() {
+	@Column(name = "admin")
+	private boolean admin;
+
+	public User() {
 
 	}
 
-	public Client(long id, String idType, String idNumber, String lastName, String firstName, Date bornDate,
-			String email, String password, Date created, boolean active) {
+	public User(long id, String idType, String idNumber, String lastName, String firstName, Date bornDate, String email,
+			String password, Date created, boolean active, boolean admin) {
 		super();
 		this.id = id;
 		this.idType = idType;
@@ -61,6 +64,7 @@ public class Client {
 		this.password = password;
 		this.created = created;
 		this.active = active;
+		this.admin = admin;
 	}
 
 	public long getId() {
@@ -141,6 +145,14 @@ public class Client {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

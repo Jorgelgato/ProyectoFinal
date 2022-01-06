@@ -2,8 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Client } from '../inicio/client/client';
-import { ClientService } from '../inicio/client/client.service';
+import { User } from '../inicio/user/user';
+import { UserService } from '../inicio/user/user.service';
 import { AlertService } from '../services/alert.service';
 import { EncryptService } from '../services/encrypt.service';
 
@@ -14,12 +14,12 @@ import { EncryptService } from '../services/encrypt.service';
 })
 export class RegisterPage implements OnInit {
 
-  client: Client = new Client();
+  user: User = new User();
 
   formRegister: FormGroup;
 
   constructor(
-    private clientService: ClientService, 
+    private userService: UserService, 
     private fb: FormBuilder, 
     private alert: AlertService,
     private encrypt: EncryptService,
@@ -43,26 +43,26 @@ export class RegisterPage implements OnInit {
 
   register() {
     var values = this.formRegister.value
-    this.client = values;
+    this.user = values;
     if (this.formRegister.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
       return;
     }
     if (values.password == values.confirmPassword) {
-      this.client.password = this.encrypt.encrypt(values.password)
+      this.user.password = this.encrypt.encrypt(values.password)
     } else {
       this.alert.presentAlert('Las contraseñas no coinciden');
       return;
     }
     var currDate = new Date();
-    this.client.created = this.datePipe.transform(currDate, 'yyyy-MM-dd')
-    this.client.active = true;
-    this.saveClient();
+    this.user.created = this.datePipe.transform(currDate, 'yyyy-MM-dd')
+    this.user.active = true;
+    this.saveUser();
   }
 
-  saveClient(){
-    this.clientService.createClient(this.client).subscribe(data => {
-      this.alert.presentSuccessToast("Cliente creado exitósamente")
+  saveUser(){
+    this.userService.createUser(this.user).subscribe(data => {
+      this.alert.presentSuccessToast("Usuario creado exitósamente")
       this.router.navigate(['/login'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }

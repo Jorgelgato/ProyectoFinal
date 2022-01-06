@@ -51,7 +51,7 @@ public class AccountController {
 
 	// Get accounts by client id
 	@CrossOrigin(origins = "http://localhost:8100")
-	@GetMapping("/account/client/{id}")
+	@GetMapping("/account/user/{id}")
 	public List<Account> getAccountsByClientId(@PathVariable Long id) {
 		return accountRepository.findClientAccounts(id);
 	}
