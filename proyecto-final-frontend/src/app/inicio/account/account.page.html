@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-card>
     <ion-card-content>
       <form [formGroup]="formAccount">
@@ -20,9 +20,11 @@
         </ion-item>
       </form>
       <br>
-      <ion-button (click)="createAccount()">
-        Crear cuenta
-      </ion-button>
+      <ion-item>
+        <ion-button slot="end" (click)="createAccount()" size="medium">
+          <ion-label>Crear cuenta</ion-label>
+        </ion-button>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -7,12 +7,9 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
 
   <ion-card>
-    <ion-card-header>
-      <ion-card-title>Register</ion-card-title>
-    </ion-card-header>
     <ion-card-content>
       <form [formGroup]="formModify">
         <ion-item>
@@ -40,23 +37,25 @@
           <ion-input type="date" formControlName="bornDate" value="{{client.bornDate}}"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">New Password</ion-label>
+          <ion-label position="floating">Contraseña nueva</ion-label>
           <ion-input type="password" formControlName="password" autocomplete="off"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-label position="floating">Confirmar contraseña</ion-label>
           <ion-input type="password" formControlName="confirmPassword" autocomplete="off"></ion-input>
         </ion-item>
         
         <ion-item>
-          <ion-label position="floating">Old Password</ion-label>
+          <ion-label position="floating">Contraseña anterior</ion-label>
           <ion-input type="password" formControlName="oldPassword" autocomplete="off"></ion-input>
         </ion-item>
       </form>
       <br>
-      <ion-button (click)="modify()">
-        Modificar
-      </ion-button>
+      <ion-item>
+        <ion-button slot="end" (click)="modify()" size="medium">
+          Modificar
+        </ion-button>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>  

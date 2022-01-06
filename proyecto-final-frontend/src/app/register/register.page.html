@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding">
   <ion-card>
     <ion-card-header>
       <ion-card-title>Registrar usuario</ion-card-title>
@@ -42,18 +42,20 @@
           <ion-input type="date" formControlName="bornDate"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-label position="floating">Confirmar contraseña</ion-label>
           <ion-input type="password" formControlName="confirmPassword" autocomplete="off"></ion-input>
         </ion-item>
       </form>
       <br>
-      <ion-button (click)="register()">
-        Registrar
-      </ion-button>
+      <ion-item>
+        <ion-button slot="end" (click)="register()" size="medium">
+          Registrar
+        </ion-button>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -4,31 +4,29 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Login</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <form [formGroup]="formLogin">
+<ion-content class="ion-padding">
+  <div class="flex-center">
+    <form [formGroup]="formLogin">
+      <ion-card>
+        <ion-card-content>
         <ion-item>
-          <ion-label position="floating">Email</ion-label>
+          <ion-label position="floating">Correo</ion-label>
           <ion-input formControlName="email"></ion-input>
         </ion-item>
-
         <ion-item>
-          <ion-label position="floating">Password</ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
           <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
-      </form>
-      <br>
-      <ion-button (click)="login()">
-        Ingresar
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
-  
+          <br>
+        <ion-item>
+          <ion-button slot="end" (click)="login()" size="medium">
+            <ion-label>Ingresar</ion-label>
+          </ion-button>
+        </ion-item>
+      </ion-card-content>
+      </ion-card>
+    </form>
+  </div>
 </ion-content>
 
 <ion-button [routerLink]="['/register']">

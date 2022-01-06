@@ -6,7 +6,7 @@
     <ion-title>Nuevo movimiento</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content class="ion-padding">
   <ion-card>
     <ion-card-content>
       <form [formGroup]="formOperation">
@@ -32,9 +32,12 @@
         </ion-item>
       </form>
       <br>
-      <ion-button (click)="newOperation()">
-        Crear movimiento
-      </ion-button>
+      <ion-item>
+        <ion-button slot="end" (click)="newOperation()" size="medium">
+          <ion-label>
+            Crear movimiento</ion-label>
+        </ion-button>
+      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>
