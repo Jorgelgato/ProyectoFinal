@@ -29,12 +29,13 @@
         </ion-item>
         <ion-card-content>
           <ion-item>
-            <ion-label><b>Saldo disponible: ${{account.amount}}</b></ion-label>
+            <ion-label *ngIf="account.amount < 0" color="danger"><b>Saldo disponible: {{account.amount | currency}}</b></ion-label>
+            <ion-label *ngIf="account.amount >= 0"><b>Saldo disponible: {{account.amount | currency}}</b></ion-label>
           </ion-item>
         </ion-card-content>
       </ion-card>
       <div *ngIf="accounts?.length == 0">
-        <h1 class="ion-text-center">No existen cuentas</h1>
+        <h1 class="ion-text-center">Este cliente no tiene cuentas</h1>
       </div>      
   </ion-infinite-scroll>
 </ion-content>

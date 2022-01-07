@@ -99,6 +99,8 @@ export class AccountPage implements OnInit {
         handler: () => {
           if (account.amount > 0) {
             this.alert.presentAlert("Esta cuenta aún tiene saldo");
+          } else if (account.amount < 0) {
+            this.alert.presentAlert("Esta cuenta tiene saldo negativo");            
           } else {
             this.alert.presentAlertConfirm('¿Seguro que desea cancelar esta cuenta?').then((res) => {
               if (res.data) {

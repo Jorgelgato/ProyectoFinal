@@ -26,8 +26,8 @@
           <ion-card-content>
             <ion-item>
               <ion-label>{{operation.date}}</ion-label>
-              <ion-label *ngIf="operation.credit==0" color="danger" slot="end"><b>-${{operation.amount}}</b></ion-label>
-              <ion-label *ngIf="operation.credit==1" color="success" slot="end"><b>${{operation.amount}}</b></ion-label>
+              <ion-label *ngIf="operation.credit==0" color="danger" slot="end"><b>-{{operation.amount | currency}}</b></ion-label>
+              <ion-label *ngIf="operation.credit==1" color="success" slot="end"><b>{{operation.amount | currency}}</b></ion-label>
             </ion-item>
             <ion-item>
               <ion-label>{{operation.description}}</ion-label>
@@ -39,6 +39,6 @@
   </ion-infinite-scroll>
   
   <div *ngIf="operations?.length == 0">
-    <h1 class="ion-text-center">No existen movimientos</h1>
+    <h1 class="ion-text-center">Esta cuenta no tiene movimientos</h1>
   </div>
 </ion-content>
