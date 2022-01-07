@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'nuevo',
-    loadChildren: () => import('./new/new.module').then( m => m.NewPageModule)
+    loadChildren: () => import('./new-operation/new-operation.module').then( m => m.NewPageModule)
   },
 ];
 

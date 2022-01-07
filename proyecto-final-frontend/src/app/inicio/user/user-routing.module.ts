@@ -13,8 +13,12 @@ const routes: Routes = [
     loadChildren: () => import('./modify/modify.module').then( m => m.ModifyPageModule)
   },
   {
-    path: 'movimientos',
-    loadChildren: () => import('./operations/operations.module').then( m => m.OperationsPageModule)
+    path: 'cuentas',
+    loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
+  },
+  {
+    path: 'nuevo',
+    loadChildren: () => import('./new-user/new-user.module').then( m => m.NewUserPageModule)
   }
 ];
 

@@ -8,12 +8,18 @@ import { User } from './user';
 })
 export class UserService {
 
+  public user: User
+
   private baseUrl = 'http://localhost:8080/api/v1/user'
 
   constructor(private httpClient: HttpClient) { }
 
+  getUserList(): Observable<User[]>{
+    return this.httpClient.get<User[]>(`${this.baseUrl}`)
+  }
+
   getUser(): Observable<User>{
-    return this.httpClient.get<User>(`${this.baseUrl}/${localStorage.getItem('id')}`)
+    return this.httpClient.get<User>(`${this.baseUrl}/${this.user.id}`)
   }
 
   createUser(user: User): Observable<Object>{
@@ -25,11 +31,11 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<User>{
-    return this.httpClient.put<User>(`${this.baseUrl}/${localStorage.getItem('id')}`, user)
+    return this.httpClient.put<User>(`${this.baseUrl}/${this.user.id}`, user)
   }
 
   deleteUser(user: User): Observable<User>{
     user.active = false;
-    return this.httpClient.put<User>(`${this.baseUrl}/${localStorage.getItem('id')}`, user)
+    return this.httpClient.put<User>(`${this.baseUrl}/${user.id}`, user)
   }
 }

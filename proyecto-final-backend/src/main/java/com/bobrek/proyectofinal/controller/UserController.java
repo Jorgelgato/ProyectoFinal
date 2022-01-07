@@ -1,5 +1,6 @@
 package com.bobrek.proyectofinal.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,11 @@ public class UserController {
 	@Autowired
 	private UserRepository clientRepository;
 
-	// Get all users
+	// Get all active users
 	@CrossOrigin(origins = "http://localhost:8100")
 	@GetMapping("/user")
 	public List<User> getAllClients() {
-		return clientRepository.findAll();
+		return clientRepository.findAllActive();
 	}
 
 	// Create user

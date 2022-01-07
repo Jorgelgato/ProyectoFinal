@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Operation } from './operation';
-import { Account } from '../../account/account';
 import { OperationType } from './operationtype';
 
 @Injectable({
@@ -10,14 +9,12 @@ import { OperationType } from './operationtype';
 })
 export class OperationsService {
   
-  public account: Account
-  
   private baseUrl = 'http://localhost:8080/api/v1/operation'
 
   constructor(private httpClient: HttpClient) { }
 
-  getOperations(): Observable<Operation[]>{
-    return this.httpClient.get<Operation[]>(`${this.baseUrl}/${this.account.id}`)
+  getOperations(id: number): Observable<Operation[]>{
+    return this.httpClient.get<Operation[]>(`${this.baseUrl}/${id}`)
   }
 
   createOperation(operation: Operation): Observable<Object>{

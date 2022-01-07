@@ -1,20 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../inicio/user/user';
-import { UserService } from '../inicio/user/user.service';
-import { AlertService } from '../services/alert.service';
-import { EncryptService } from '../services/encrypt.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { EncryptService } from 'src/app/services/encrypt.service';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.page.html',
-  styleUrls: ['./register.page.scss'],
+  selector: 'app-new-user',
+  templateUrl: './new-user.page.html',
+  styleUrls: ['./new-user.page.scss'],
 })
-export class RegisterPage implements OnInit {
+export class NewUserPage implements OnInit {
 
-  user: User = new User();
+  user?: User = new User();
 
   formRegister: FormGroup;
 
@@ -62,9 +62,7 @@ export class RegisterPage implements OnInit {
   saveUser(){
     this.userService.createUser(this.user).subscribe(data => {
       this.alert.presentSuccessToast("Usuario creado exitósamente")
-      this.router.navigate(['/login'])
+      this.router.navigate(['/inicio/'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
-
-
 }

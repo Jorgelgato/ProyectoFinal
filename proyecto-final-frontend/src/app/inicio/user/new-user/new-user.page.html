@@ -6,56 +6,57 @@
         <ion-icon size="large" slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Modificar usuario</ion-title>
+    <ion-title>Crear usuario</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-
   <ion-card>
+    <ion-card-header>
+      <ion-card-title>Registrar usuario</ion-card-title>
+    </ion-card-header>
     <ion-card-content>
-      <form [formGroup]="formModify">
+      <form [formGroup]="formRegister">        
         <ion-item>
-          <ion-label position="floating">Tipo de identificación</ion-label>
-          <ion-input formControlName="idType" value="{{user.idType}}"></ion-input>
+          <ion-label>Tipo de identificación</ion-label>
+          <ion-select formControlName="idType" interface="popover">
+            <ion-select-option value="CC">CC</ion-select-option>
+            <ion-select-option value="CE">CE</ion-select-option>
+          </ion-select>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Número de identificación</ion-label>
-          <ion-input type="number" formControlName="idNumber" value="{{user.idNumber}}"></ion-input>
+          <ion-input type="number" formControlName="idNumber"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Apellidos</ion-label>
-          <ion-input formControlName="lastName" value="{{user.lastName}}"></ion-input>
+          <ion-input formControlName="lastName"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Nombre</ion-label>
-          <ion-input formControlName="firstName" value="{{user.firstName}}"></ion-input>
+          <ion-input formControlName="firstName"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Correo electrónico</ion-label>
-          <ion-input type="email" formControlName="email" value="{{user.email}}"></ion-input>
+          <ion-input type="email" formControlName="email"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Fecha de nacimiento</ion-label>
-          <ion-input type="date" formControlName="bornDate" value="{{user.bornDate}}"></ion-input>
+          <ion-input type="date" formControlName="bornDate"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="floating">Contraseña nueva</ion-label>
-          <ion-input type="password" formControlName="password" autocomplete="off"></ion-input>
+          <ion-label position="floating">Contraseña</ion-label>
+          <ion-input type="password" formControlName="password"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label position="floating">Confirmar contraseña</ion-label>
           <ion-input type="password" formControlName="confirmPassword" autocomplete="off"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña anterior</ion-label>
-          <ion-input type="password" formControlName="oldPassword" autocomplete="off"></ion-input>
-        </ion-item>
       </form>
       <br>
       <ion-item>
-        <ion-button slot="end" (click)="modify()" size="medium">
-          Modificar
+        <ion-button slot="end" (click)="register()" size="medium">
+          Registrar
         </ion-button>
       </ion-item>
     </ion-card-content>

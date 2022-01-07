@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+      <ion-button routerLink="../">
+        <ion-icon size="large" slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="./nueva">
+        Nueva <ion-icon size="large" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+      <ion-title>Cuentas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-infinite-scroll>
+      <ion-card *ngFor="let account of accounts" (click)="saveAccount(account)">
+        <ion-item>
+          <ion-card-subtitle> {{account.id}}</ion-card-subtitle>
+          <ion-button fill="clear" slot="end" (click)="options($event, account)" size="big">
+            <ion-icon slot="icon-only" name="settings"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item>
+          <ion-card-title>Cuenta {{typeToString(account.type)}}</ion-card-title>
+        </ion-item>
+        <ion-card-content>
+          <ion-item>
+            <ion-label><b>Saldo disponible: ${{account.amount}}</b></ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+      <div *ngIf="accounts?.length == 0">
+        <h1 class="ion-text-center">No existen cuentas</h1>
+      </div>      
+  </ion-infinite-scroll>
+</ion-content>

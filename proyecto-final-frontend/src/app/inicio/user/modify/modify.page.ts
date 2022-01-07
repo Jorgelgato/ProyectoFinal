@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { EncryptService } from 'src/app/services/encrypt.service';
-import { AccountService } from '../../account/account.service';
+import { AccountService } from '../account/account.service';
 import { User } from '../user';
 import { UserService } from '../user.service';
 
@@ -14,7 +14,7 @@ import { UserService } from '../user.service';
 })
 export class ModifyPage implements OnInit {
 
-  user: User = new User();
+  user?: User = new User();
 
   formModify: FormGroup;
 
@@ -23,7 +23,6 @@ export class ModifyPage implements OnInit {
     private encrypt: EncryptService,
     private fb: FormBuilder,
     private alert: AlertService,
-    private accountService: AccountService,
     private router: Router
   ) {
     this.formModify = this.fb.group({
@@ -41,9 +40,15 @@ export class ModifyPage implements OnInit {
 
   ngOnInit() {
   }
-
-  ionViewDidEnter(): void {
-    this.getUser();
+  
+  ionViewWillEnter(): void {
+    if(!this.userService.user){
+      this.router.navigate(['/inicio'])
+    } else {  
+      this.userService.getUser().subscribe(data => {
+        this.user = data;
+      });
+    }
   }
 
   modify() {
@@ -85,39 +90,10 @@ export class ModifyPage implements OnInit {
     this.updateUser();
   }
 
-  getUser() {
-    this.userService.getUser().subscribe(data => {
-      this.user = data;
-    });
-  }
-
   updateUser() {
     this.userService.updateUser(this.user).subscribe(data => {
       this.alert.presentSuccessToast("Usuario modificado exitosamente")
       this.router.navigate(['/inicio'])
-    }, err => { this.alert.presentErrorToast("Error del servidor") });
-  }
-
-  delete() {
-    this.accountService.getUserAccountList().subscribe(data => {
-      if (data.length > 0) {
-        this.alert.presentAlert("Tiene productos vigentes");
-      } else {
-        this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
-          if (res.data) {
-            this.deleteUser();
-          }
-        });
-      }
-    });
-  }
-
-  deleteUser() {
-    this.userService.deleteUser(this.user).subscribe(data => {
-      this.alert.presentSuccessToast("Usuario eliminado exitosamente")
-      localStorage.removeItem('logged')
-      localStorage.removeItem('id')
-      this.router.navigate(['/login'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
 }

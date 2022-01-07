@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActionSheetController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
-import { Account } from '../account/account';
-import { AccountService } from '../account/account.service';
-import { AccountType } from '../account/accounttype';
-import { OperationsService } from './operations/operations.service';
+import { AccountService } from './account/account.service';
+import { User } from './user';
+import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user',
@@ -14,100 +13,58 @@ import { OperationsService } from './operations/operations.service';
 })
 export class UserPage implements OnInit {
 
-  accounts?: Account[]
-  types?: AccountType[]
+  users?: User[];
 
   constructor(
-    private accountService: AccountService,
-    private operationsService: OperationsService,
-    private alert: AlertService,
     private router: Router,
-    private actionSheetController: ActionSheetController
-  ) { }
+    private userService: UserService,
+    private actionSheetController: ActionSheetController,
+    private alert: AlertService,
+    private accountService: AccountService,
+  ) {
+
+  }
 
   ngOnInit(): void {
-  } 
-  
-  ionViewWillEnter(): void {
-    this.getAccountTypes();
+
   }
-  
+
   ionViewDidEnter(): void {
-    this.getAccountList();
+    this.getUserList();
   }
 
-  private getAccountList() {
-    this.accountService.getUserAccountList().subscribe(data => {
-      this.accounts = data;
+  private getUserList() {
+    this.userService.getUserList().subscribe(data => {
+      this.users = data;
     });
   }
 
-  private getAccountTypes() {
-    this.accountService.getAccountTypes().subscribe(data => {
-      this.types = data;
-    });
+  saveUser(user: User){
+    this.userService.user = user;
+    this.router.navigate([this.router.url + "/cuentas"])
   }
 
-  typeToString(type: number): string {
-    for (let types of this.types) {
-      if (type == types.id) {
-        return types.type;
-      }
-    }
-  }
- 
-  saveAccount(account: Account){
-    this.operationsService.account = account;
-    this.router.navigate(["inicio/usuario/movimientos"])
-  }
-
-  options(event, account: Account) {
+  options(event, user: User) {
     event.stopPropagation();
-    this.presentActionSheet(account);
+    this.presentActionSheet(user);
   }
 
-  async presentActionSheet(account: Account) {
+  async presentActionSheet(user: User) {
     const actionSheet = await this.actionSheetController.create({
-      header: 'Opciones de cuenta',
+      header: 'Opciones de usuario',
       cssClass: 'my-custom-class',
       buttons: [{
-        text: 'Estado de cuenta',
+        text: 'Modificar cliente',
         icon: 'build',
         handler: () => {
-          if (account.status) {
-            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="danger">inactiva</ion-text>.\n ¿Desea activarla?').then((res) => {
-              if (res.data) {
-                this.accountService.toggleAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta activada exitósamente");
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })
-          } else {
-            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="success">activa</ion-text>.\n ¿Desea desactivarla?').then((res) => {
-              if (res.data) {
-                this.accountService.toggleAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta desactivada exitósamente");
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })           
-          }
+          this.userService.user = user;
+          this.router.navigate([this.router.url + "/modificar"])
         }
       }, {
-        text: 'Cancelar cuenta',
+        text: 'Eliminar cliente',
         icon: 'trash',
         handler: () => {
-          if (account.amount > 0) {
-            this.alert.presentAlert("Esta cuenta aún tiene saldo");
-          } else {
-            this.alert.presentAlertConfirm('¿Seguro que desea cancelar esta cuenta?').then((res) => {
-              if (res.data) {
-                this.accountService.cancelAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta cancelada exitósamente");
-                  this.reload();
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })
-          }
+          this.delete(user);
         }
       }, {
         text: 'Cancelar',
@@ -117,14 +74,28 @@ export class UserPage implements OnInit {
     await actionSheet.present();
   }
 
-  reload() {
-    window.location.reload();
-    /*
-    let currentUrl = this.router.url;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([currentUrl]);
-    */
-}
+  delete(user: User) {
+    this.accountService.getUserAccountList(user.id).subscribe(data => {
+      if (data.length > 0) {
+        this.alert.presentAlert("Tiene productos vigentes");
+      } else {
+        this.alert.presentAlertConfirm('¿Seguro que desea eliminar el usuario?').then((res) => {
+          if (res.data) {
+            this.deleteUser(user);
+          }
+        });
+      }
+    }, err => { this.alert.presentErrorToast("Error del servidor") });
+  }
 
+  deleteUser(user: User) {
+    this.userService.deleteUser(user).subscribe(data => {
+      this.alert.presentSuccessToast("Usuario eliminado exitosamente");
+      this.reload();
+    }, err => { this.alert.presentErrorToast("Error del servidor") });
+  }
+
+  reload(){
+    window.location.reload();
+  }
 }

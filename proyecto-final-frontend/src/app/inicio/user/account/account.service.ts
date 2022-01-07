@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { User } from '../user';
 import { Account } from './account';
 import { AccountType } from './accounttype';
 
@@ -8,13 +9,15 @@ import { AccountType } from './accounttype';
   providedIn: 'root'
 })
 export class AccountService {
-
+  
+  public account: Account
+  
   private baseUrl = 'http://localhost:8080/api/v1/account'
 
   constructor(private httpClient: HttpClient) { }
 
-  getUserAccountList(): Observable<Account[]>{
-    return this.httpClient.get<Account[]>(`${this.baseUrl}/user/${localStorage.getItem('id')}`,)
+  getUserAccountList(id: number): Observable<Account[]>{
+    return this.httpClient.get<Account[]>(`${this.baseUrl}/user/${id}`,)
   }
 
   getAccount(id: number): Observable<Account>{

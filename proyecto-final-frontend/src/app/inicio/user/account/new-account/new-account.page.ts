@@ -1,16 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AccountService } from './account.service';
-import { Account } from './account';
 import { AlertService } from 'src/app/services/alert.service';
+import { UserService } from '../../user.service';
+import { Account } from '../account';
+import { AccountService } from '../account.service';
 
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.page.html',
-  styleUrls: ['./account.page.scss'],
+  selector: 'app-new-account',
+  templateUrl: './new-account.page.html',
+  styleUrls: ['./new-account.page.scss'],
 })
-export class AccountPage implements OnInit {
+export class NewAccountPage implements OnInit {
 
   formAccount: FormGroup;
   account: Account = new Account();
@@ -19,6 +20,7 @@ export class AccountPage implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private accountService: AccountService,
+    private userService: UserService,
     private alert: AlertService
   ) {
     this.formAccount = this.fb.group({
@@ -36,7 +38,7 @@ export class AccountPage implements OnInit {
     }
     var values = this.formAccount.value
     this.account = values;
-    this.account.idClient = +localStorage.getItem('id');
+    this.account.idClient = this.userService.user.id;
     var today = new Date();
     this.account.created = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
     this.account.status = 0;
@@ -47,7 +49,8 @@ export class AccountPage implements OnInit {
   saveAccount(){
     this.accountService.createAccount(this.account).subscribe(data => {
       this.alert.presentSuccessToast("Cuenta creada exitósamente")
-      this.router.navigate(['/inicio/usuario'])
+      this.router.navigate(['/inicio/usuarios/cuentas'])
     }, err => { this.alert.presentErrorToast("Error del servidor") });
   }
+
 }

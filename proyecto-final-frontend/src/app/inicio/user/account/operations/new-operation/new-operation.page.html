@@ -2,6 +2,9 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
+      <ion-button routerLink="../">
+        <ion-icon size="large" slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
     </ion-buttons>
     <ion-title>Nuevo movimiento</ion-title>
   </ion-toolbar>
@@ -14,8 +17,8 @@
           <ion-label>Tipo de movimiento</ion-label>
           <ion-select formControlName="operationType" interface="popover" (ionChange)="updateForm()">
             <ion-select-option [value]="0">Depósito</ion-select-option>
-            <ion-select-option *ngIf="this.operationsService.account.status == 0" [value]="1">Retiro</ion-select-option>
-            <ion-select-option *ngIf="this.operationsService.account.status == 0" [value]="2">Transferencia</ion-select-option>
+            <ion-select-option *ngIf="this.accountService.account.status == 0" [value]="1">Retiro</ion-select-option>
+            <ion-select-option *ngIf="this.accountService.account.status == 0" [value]="2">Transferencia</ion-select-option>
           </ion-select>
         </ion-item>
         <ion-item>

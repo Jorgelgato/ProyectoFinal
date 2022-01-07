@@ -1,5 +1,6 @@
 package com.bobrek.proyectofinal.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,8 +11,10 @@ import com.bobrek.proyectofinal.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	
+
+	@Query(value = "SELECT * FROM users WHERE active = true", nativeQuery = true)
+	List<User> findAllActive();
+
 	@Query(value = "SELECT * FROM users WHERE email = ? AND active = true", nativeQuery = true)
 	Optional<User> findByEmail(String email);
-
 }

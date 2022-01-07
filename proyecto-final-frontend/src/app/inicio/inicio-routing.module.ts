@@ -8,23 +8,19 @@ const routes: Routes = [
     component: InicioPage,
     children: [
       {
-        path: 'usuario',
+        path: 'usuarios',
         loadChildren: () => import('./user/user.module').then(m => m.UserPageModule)
       },
       {
-        path: 'cuenta',
-        loadChildren: () => import('./account/account.module').then(m => m.AccountPageModule)
-      },
-      {
         path: '',
-        redirectTo: '/inicio/usuario',
+        redirectTo: '/inicio/usuarios',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/inicio/usuario',
+    redirectTo: '/inicio/usuarios',
     pathMatch: 'full'
   }
 ];
