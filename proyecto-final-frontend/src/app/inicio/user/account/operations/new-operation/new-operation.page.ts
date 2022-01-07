@@ -92,7 +92,7 @@ export class NewOperationPage implements OnInit {
   }
 
   withdrawal() {
-    if (this.accountService.account.amount - this.operation.amount < 0) {
+    if ((this.accountService.account.type == 0 && this.accountService.account.amount - this.operation.amount < 0) || (this.accountService.account.type == 1 && this.accountService.account.amount - this.operation.amount < 2000000)) {
       this.alert.presentErrorToast("Saldo insuficiente");
       return;
     }
@@ -106,7 +106,7 @@ export class NewOperationPage implements OnInit {
   }
 
   transfer() {
-    if (this.accountService.account.amount - this.operation.amount < 0) {
+    if ((this.accountService.account.type == 0 && this.accountService.account.amount - this.operation.amount < 0) || (this.accountService.account.type == 1 && this.accountService.account.amount - this.operation.amount < -2000000)) {
       this.alert.presentErrorToast("Saldo insuficiente");
       return;
     }

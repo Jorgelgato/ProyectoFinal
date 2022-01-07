@@ -11,19 +11,6 @@
       <ion-title>Usuarios</ion-title>
     </ion-toolbar>
   </ion-header>
-<!-- 
-"id": 1,
-"idType": "CC",
-"idNumber": "1090514820",
-"lastName": "Bobrek",
-"firstName": "Jorge",
-"bornDate": "1998-03-18",
-"email": "jrbobrek@gmail.com",
-"password": "$2a$10$LRzl4OGEb4Xaaot9sMSsluviriLxV7f0VwDPGGD1oamJgbCRj30Re",
-"created": "2021-12-30",
-"active": true,
-"admin": true
- -->
 <ion-content class="ion-padding">
     <ion-infinite-scroll>
         <ion-card *ngFor="let user of users" (click)="saveUser(user)">

@@ -72,7 +72,7 @@ public class AccountController {
 	public ResponseEntity<Account> subtractAmount(@RequestBody Account account) {
 		Account acc = accountRepository.findById(account.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("Account not exist"));
-		if (acc.getAmount() - account.getAmount() < 0) {
+		if ((acc.getType() == 0 && acc.getAmount() - account.getAmount() < 0) || (acc.getType() == 1 && acc.getAmount() - account.getAmount() < -2000000)) {
 			return new ResponseEntity<Account>(HttpStatus.BAD_REQUEST);
 		}
 		acc.setAmount(acc.getAmount() - account.getAmount());
