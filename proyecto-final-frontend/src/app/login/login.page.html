@@ -3,33 +3,62 @@
     <ion-title>Iniciar Sesión</ion-title>
   </ion-toolbar>
 </ion-header>
-<!-- <div class="container">
+
+<div class="container">
   <div class="forms-container">
     <div class="signin-signup">
-      <form action="" class="sign-in-form">
-        <h2 class="title">Sing in</h2>
+      <form class="sign-in-form" [formGroup]="formLogin">
+        <img src="assets/cat_coin.svg" class="logo">
+        <h2 class="title">Iniciar sesión</h2>
         <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="text" placeholder="Username">
+          <input formControlName="email" type="text" placeholder="Correo">
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password">
+          <input formControlName="password" type="password" placeholder="Contraseña">
         </div>
-        <input type="submit" value="Login" class="btn solid">
+        <input (click)="login()" type="submit" value="Iniciar sesion" class="btn solid">
       </form>
 
-      <form action="" class="sign-up-form">
-        <h2 class="title">Sing up</h2>
+      <form class="sign-up-form" [formGroup]="formRegister">
+        <h2 class="title">Registrarse</h2>
+        <div class="input-field">
+          <i class="fas fa-address-card"></i>
+          <ion-select formControlName="idType" interface="popover" placeholder="Tipo de identificación">
+            <ion-select-option value="CC">CC</ion-select-option>
+            <ion-select-option value="CE">CE</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="input-field">
+          <i class="fas fa-address-card"></i>
+          <input formControlName="idNumber" type="number" placeholder="Número de identificación">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input formControlName="lastName" type="text" placeholder="Apellidos">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input formControlName="firstName" type="text" placeholder="Nombres">
+        </div>
         <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="text" placeholder="Username">
+          <input formControlName="email" type="email" type="text" placeholder="Correo electrónico">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-calendar"></i>
+          <input formControlName="bornDate" type="date" placeholder="Fecha de nacimiento">
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password">
+          <input formControlName="password" type="password" placeholder="Contraseña">
         </div>
-        <input type="submit" value="Sign up" class="btn solid">
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input formControlName="confirmPassword" type="password" placeholder="Confirmar contraseña">
+        </div>
+        <input (click)="register()" type="submit" value="Registrar" class="btn solid">
       </form>
     </div>
   </div>
@@ -37,47 +66,19 @@
     <div class="panel left-panel">
       <div class="content">
         <h3> ¿No tienes cuenta? </h3>
-        <button class="btn transparent" id="sign-up-btn">Registro</button>
+        <br>
+        <button class="btn transparent" (click)="signUp()" id="sign-up-btn">Registro</button>
       </div>
-      <img src="assets/register.svg" class="image" alt="">
+      <img src="assets/login.svg" class="image">
     </div>
     
     <div class="panel right-panel">
       <div class="content">
         <h3> ¿Ya tienes cuenta? </h3>
-        <button class="btn transparent" id="sign-up-btn">Registro</button>
+        <br>
+        <button class="btn transparent" (click)="signIn()" id="sign-in-btn">Registro</button>
       </div>
-      <img src="assets/register.svg" class="image" alt="">
+      <img src="assets/register.svg" class="image">
     </div>
   </div>
 </div>
- -->
-
-<ion-content class="ion-padding">
-  <div class="flex-center">
-    <form [formGroup]="formLogin">
-      <ion-card>
-        <ion-card-content>
-        <ion-item>
-          <ion-label position="floating">Correo</ion-label>
-          <ion-input formControlName="email"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña</ion-label>
-          <ion-input type="password" formControlName="password"></ion-input>
-        </ion-item>
-          <br>
-        <ion-item>
-          <ion-button slot="end" (click)="login()" size="medium">
-            <ion-label>Ingresar</ion-label>
-          </ion-button>
-        </ion-item>
-      </ion-card-content>
-      </ion-card>
-    </form>
-  </div>
-</ion-content>
-
-<ion-button [routerLink]="['/register']">
-  Registro
-</ion-button>

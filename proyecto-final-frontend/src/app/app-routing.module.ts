@@ -20,11 +20,6 @@ const routes: Routes = [
     canActivate: [NotloggedGuard]
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule),
-    canActivate: [NotloggedGuard]
-  },
-  {
     path: 'account',
     loadChildren: () => import('./inicio/user/account/account.module').then( m => m.AccountPageModule)
   },
