@@ -11,23 +11,18 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card>
+  <ion-card class="ion-padding">
     <ion-card-content>
-      <form [formGroup]="formAccount">
-        <ion-item>
-          <ion-label>Tipo de cuenta</ion-label>
-          <ion-select formControlName="type" value="ahorros" interface="popover">
+      <form [formGroup]="formAccount">        
+        <div class="input-field">
+          <i class="fas fa-address-card"></i>
+          <ion-select formControlName="type" interface="popover" placeholder="Tipo de cuenta">
             <ion-select-option [value]="0">Ahorros</ion-select-option>
             <ion-select-option [value]="1">Corriente</ion-select-option>
           </ion-select>
-        </ion-item>
+        </div>
+        <input (click)="createAccount()" type="submit" value="Crear cuenta" class="btn solid">
       </form>
-      <br>
-      <ion-item>
-        <ion-button slot="end" (click)="createAccount()" size="medium">
-          <ion-label>Crear cuenta</ion-label>
-        </ion-button>
-      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

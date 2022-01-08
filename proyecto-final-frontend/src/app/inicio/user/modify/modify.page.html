@@ -12,52 +12,47 @@
 
 <ion-content class="ion-padding">
 
-  <ion-card>
+  <ion-card class="ion-padding">
     <ion-card-content>
       <form [formGroup]="formModify">
-        <ion-item>
-          <ion-label position="floating">Tipo de identificación</ion-label>
-          <ion-input formControlName="idType" value="{{user.idType}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Número de identificación</ion-label>
-          <ion-input type="number" formControlName="idNumber" value="{{user.idNumber}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Apellidos</ion-label>
-          <ion-input formControlName="lastName" value="{{user.lastName}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Nombre</ion-label>
-          <ion-input formControlName="firstName" value="{{user.firstName}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Correo electrónico</ion-label>
-          <ion-input type="email" formControlName="email" value="{{user.email}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Fecha de nacimiento</ion-label>
-          <ion-input type="date" formControlName="bornDate" value="{{user.bornDate}}"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña nueva</ion-label>
-          <ion-input type="password" formControlName="password" autocomplete="off"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Confirmar contraseña</ion-label>
-          <ion-input type="password" formControlName="confirmPassword" autocomplete="off"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Contraseña anterior</ion-label>
-          <ion-input type="password" formControlName="oldPassword" autocomplete="off"></ion-input>
-        </ion-item>
+        <div class="input-field">
+          <i class="fas fa-address-card"></i>
+          <input formControlName="idType" type="text" placeholder="Tipo de identificación" value="{{user.idType}}" [attr.disabled]="true">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-address-card"></i>
+          <input formControlName="idNumber" type="number" placeholder="Número de identificación" value="{{user.idNumber}}" [attr.disabled]="true">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input formControlName="lastName" type="text" placeholder="Apellidos" value="{{user.lastName}}">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input formControlName="firstName" type="text" placeholder="Nombres" value="{{user.firstName}}">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-envelope"></i>
+          <input formControlName="email" type="email" type="text" placeholder="Correo electrónico" value="{{user.email}}">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-calendar"></i>
+          <input formControlName="bornDate" type="date" placeholder="Fecha de nacimiento" value="{{user.bornDate}}">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input formControlName="password" type="password" placeholder="Contraseña">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input formControlName="confirmPassword" type="password" placeholder="Confirmar contraseña">
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input formControlName="oldPassword" type="password" placeholder="Contraseña anterior">
+        </div>
+        <input (click)="modify()" type="submit" value="Modificar" class="btn solid">
       </form>
-      <br>
-      <ion-item>
-        <ion-button slot="end" (click)="modify()" size="medium">
-          Modificar
-        </ion-button>
-      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

@@ -12,35 +12,29 @@
 <ion-content class="ion-padding">
   <ion-card>
     <ion-card-content>
-      <form [formGroup]="formOperation">
-        <ion-item>
-          <ion-label>Tipo de movimiento</ion-label>
-          <ion-select formControlName="operationType" interface="popover" (ionChange)="updateForm()">
+      <form [formGroup]="formOperation">        
+        <div class="input-field">
+          <i class="fas fa-address-book"></i>
+          <ion-select formControlName="operationType" interface="popover" (ionChange)="updateForm()" placeholder="Tipo de movimiento">
             <ion-select-option [value]="0">Depósito</ion-select-option>
             <ion-select-option *ngIf="this.accountService.account.status == 0" [value]="1">Retiro</ion-select-option>
             <ion-select-option *ngIf="this.accountService.account.status == 0" [value]="2">Transferencia</ion-select-option>
           </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Descripción</ion-label>
-          <ion-input formControlName="description"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Monto</ion-label>
-          <ion-input type="number" formControlName="amount"></ion-input>
-        </ion-item>
-        <ion-item *ngIf="formOperation.value.operationType==2">
-          <ion-label position="floating">Cuenta destino</ion-label>
-          <ion-input type="number" formControlName="idDestination"></ion-input>
-        </ion-item>
+        </div>
+        <div class="input-field">
+          <i class="fa fa-file-text"></i>
+          <input formControlName="description" type="text" placeholder="Descripción">
+        </div>
+        <div class="input-field">
+          <i class="fa fa-money"></i>
+          <input formControlName="amount" type="number" placeholder="Monto">
+        </div>
+        <div class="input-field" *ngIf="formOperation.value.operationType==2">
+          <i class="fas fa-address-book"></i>
+          <input formControlName="idDestination" type="number" placeholder="Cuenta destino">
+        </div>
+        <input (click)="newOperation()" type="submit" value="Crear movimiento" class="btn solid">
       </form>
-      <br>
-      <ion-item>
-        <ion-button slot="end" (click)="newOperation()" size="medium">
-          <ion-label>
-            Crear movimiento</ion-label>
-        </ion-button>
-      </ion-item>
     </ion-card-content>
   </ion-card>
 </ion-content>

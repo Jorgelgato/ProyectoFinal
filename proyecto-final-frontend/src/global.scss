@@ -24,3 +24,67 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+input:-webkit-autofill {
+    box-shadow: 0 0 0 50px var(--ion-color-light) inset;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.input-field {
+    max-width: 600px;
+    width: 100%;
+    height: 60px;
+    background-color: var(--ion-color-light);
+    margin: 10px 0;
+    border-radius: 55px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 1.5rem;
+}
+
+.input-field i {
+    text-align: center;
+    line-height: 60px;
+    color: #acacac;
+    font-size: 1.1rem;
+}
+
+.input-field input {
+    background: none;
+    outline: none;
+    border: none;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ion-text-color);
+}
+
+.input-field input::placeholder {
+    color: #aaa;
+    font-weight: 500;
+}
+
+.btn {
+    width: 150px;
+    height: 50px;
+    outline: none;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: #41AE38;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600px;
+    margin: 10px 0;
+    transition: .5s;
+}
+
+.btn:hover {
+    background-color: #348a2c;
+}
