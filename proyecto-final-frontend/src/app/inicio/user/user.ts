@@ -9,4 +9,5 @@ export class User {
     password?: string;
     created?: string;
     active?: boolean;
+    collapsed?: boolean;
 }

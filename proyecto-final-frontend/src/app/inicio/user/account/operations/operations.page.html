@@ -17,25 +17,23 @@
 
 <ion-content class="ion-padding">
   <ion-infinite-scroll>
-    <div class="card-data">
-      <div class="card">
-        <ion-card *ngFor="let operation of operations" class="ion-activated">
-          <ion-card-header>
-            <ion-card-title>{{typeToString(operation.operationType)}}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-item>
-              <ion-label>{{operation.date}}</ion-label>
-              <ion-label *ngIf="operation.credit==0" color="danger" slot="end"><b>-{{operation.amount | currency}}</b></ion-label>
-              <ion-label *ngIf="operation.credit==1" color="success" slot="end"><b>{{operation.amount | currency}}</b></ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>{{operation.description}}</ion-label>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
+    <ion-card *ngFor="let operation of operations;">
+      <div class="card-container">
+        <div class="card title">
+          <h1>{{typeToString(operation.operationType)}}</h1>
+        </div>
+        <div class="card body">
+          <p>{{operation.date}}</p>
+        </div>
+        <div class="card body">
+          <p>{{operation.description}}</p>
+        </div>
+        <div class="card end">
+          <p *ngIf="operation.credit==0" class="danger"><b>-{{operation.amount | currency}}</b></p>
+          <p *ngIf="operation.credit==1" class="success"><b>{{operation.amount | currency}}</b></p>
+        </div>
       </div>
-    </div>
+    </ion-card>
   </ion-infinite-scroll>
   
   <div *ngIf="operations?.length == 0">

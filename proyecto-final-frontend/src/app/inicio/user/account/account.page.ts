@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChildren } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountService } from './account.service';
@@ -17,6 +17,7 @@ import { UserService } from '../user.service';
 export class AccountPage implements OnInit {
   
   accounts?: Account[]
+  @ViewChildren('accountCard') accountCards;
   types?: AccountType[]
 
   constructor(
@@ -63,61 +64,41 @@ export class AccountPage implements OnInit {
     this.router.navigate([this.router.url + "/movimientos"])
   }
 
-  options(event, account: Account) {
-    event.stopPropagation();
-    this.presentActionSheet(account);
+  statusAccount(account: Account){
+    if (account.status) {
+      this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="danger">inactiva</ion-text>.\n ¿Desea activarla?').then((res) => {
+        if (res.data) {
+          this.accountService.toggleAccount(account).subscribe(data => {
+            this.alert.presentSuccessToast("Cuenta activada exitósamente");
+          }, err => { this.alert.presentErrorToast("Error del servidor") });
+        }
+      })
+    } else {
+      this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="success">activa</ion-text>.\n ¿Desea desactivarla?').then((res) => {
+        if (res.data) {
+          this.accountService.toggleAccount(account).subscribe(data => {
+            this.alert.presentSuccessToast("Cuenta desactivada exitósamente");
+          }, err => { this.alert.presentErrorToast("Error del servidor") });
+        }
+      })           
+    }
   }
 
-  async presentActionSheet(account: Account) {
-    const actionSheet = await this.actionSheetController.create({
-      header: 'Opciones de cuenta',
-      buttons: [{
-        text: 'Estado de cuenta',
-        icon: 'build',
-        handler: () => {
-          if (account.status) {
-            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="danger">inactiva</ion-text>.\n ¿Desea activarla?').then((res) => {
-              if (res.data) {
-                this.accountService.toggleAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta activada exitósamente");
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })
-          } else {
-            this.alert.presentAlertConfirm('Esta cuenta está <ion-text color="success">activa</ion-text>.\n ¿Desea desactivarla?').then((res) => {
-              if (res.data) {
-                this.accountService.toggleAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta desactivada exitósamente");
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })           
-          }
+  cancelAccount(account: Account){
+    if (account.amount > 0) {
+      this.alert.presentAlert("Esta cuenta aún tiene saldo");
+    } else if (account.amount < 0) {
+      this.alert.presentAlert("Esta cuenta tiene saldo negativo");            
+    } else {
+      this.alert.presentAlertConfirm('¿Seguro que desea cancelar esta cuenta?').then((res) => {
+        if (res.data) {
+          this.accountService.cancelAccount(account).subscribe(data => {
+            this.alert.presentSuccessToast("Cuenta cancelada exitósamente");
+            this.reload();
+          }, err => { this.alert.presentErrorToast("Error del servidor") });
         }
-      }, {
-        text: 'Cancelar cuenta',
-        icon: 'trash',
-        handler: () => {
-          if (account.amount > 0) {
-            this.alert.presentAlert("Esta cuenta aún tiene saldo");
-          } else if (account.amount < 0) {
-            this.alert.presentAlert("Esta cuenta tiene saldo negativo");            
-          } else {
-            this.alert.presentAlertConfirm('¿Seguro que desea cancelar esta cuenta?').then((res) => {
-              if (res.data) {
-                this.accountService.cancelAccount(account).subscribe(data => {
-                  this.alert.presentSuccessToast("Cuenta cancelada exitósamente");
-                  this.reload();
-                }, err => { this.alert.presentErrorToast("Error del servidor") });
-              }
-            })
-          }
-        }
-      }, {
-        text: 'Cancelar',
-        icon: 'close'
-      }]
-    });
-    await actionSheet.present();
+      })
+    }
   }
 
   reload() {
@@ -128,5 +109,21 @@ export class AccountPage implements OnInit {
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
     */
+  }
+  
+  toggleAccordian(index) {
+    var element = this.accountCards.toArray()[index].el.firstChild;
+    element.classList.toggle("active");
+    if (this.accounts[index].collapsed) {
+      this.accounts[index].collapsed = false;
+    } else {
+      this.accounts[index].collapsed = true;
+    }
+    var panel = element.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    }
   }
 }

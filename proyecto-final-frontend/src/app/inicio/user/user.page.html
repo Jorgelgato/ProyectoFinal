@@ -1,40 +1,43 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button routerLink="./nuevo">
-          Nuevo <ion-icon size="large" name="add-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-      <ion-title>Usuarios</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="./nuevo">
+        Nuevo <ion-icon size="large" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content class="ion-padding">
-    <ion-infinite-scroll>
-        <ion-card *ngFor="let user of users" (click)="saveUser(user)">
-          <ion-item>
-            <ion-card-subtitle> {{user.id}}</ion-card-subtitle>
-            <ion-button fill="clear" slot="end" (click)="options($event, user)" size="big">
-              <ion-icon slot="icon-only" name="settings"></ion-icon>
-            </ion-button>
-          </ion-item>
-          <ion-item>
-            <ion-card-title>{{user.firstName}} {{user.lastName}}</ion-card-title>
-          </ion-item>
-          <ion-card-content>
-            <ion-item>
-              <ion-label>{{user.idType}}: {{user.idNumber}}</ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>{{user.email}}</ion-label>
-              <ion-label>{{user.bornDate}}</ion-label>
-            </ion-item>
-          </ion-card-content>
-        </ion-card>
-        <div *ngIf="users?.length == 0">
-          <h1 class="ion-text-center">No existen clientes</h1>
-        </div>      
-    </ion-infinite-scroll>
-  </ion-content>
+  <ion-infinite-scroll>
+    <ion-card #userCard *ngFor="let user of users; let i = index;" (click)="toggleAccordian(i)">
+      <div class="accordion">
+        <div class="card-container">
+          <div class="card title">
+            <h1>{{user.firstName}} {{user.lastName}}</h1>
+          </div>
+          <div class="card body">
+            <p>{{user.idType}}: {{user.idNumber}}</p>
+          </div>
+          <div class="card body">
+            <p>{{user.email}}</p>
+          </div>
+          <div class="card end">
+            <p>{{user.bornDate}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-content" hide="user.collapsed">
+        <button class="card-btn green" (click)="saveUser(user)">Ver cuentas</button>
+        <button class="card-btn yellow" (click)="modifyUser(user)">Modificar</button>
+        <button class="card-btn red" (click)="deleteUser(user)">Eliminar</button>
+      </div>
+    </ion-card>
+    <div *ngIf="users?.length == 0">
+      <h1 class="ion-text-center">No existen clientes</h1>
+    </div>
+  </ion-infinite-scroll>
+</ion-content>

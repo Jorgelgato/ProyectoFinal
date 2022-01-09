@@ -17,25 +17,29 @@
 
 <ion-content class="ion-padding">
   <ion-infinite-scroll>
-      <ion-card *ngFor="let account of accounts" (click)="saveAccount(account)">
-        <ion-item>
-          <ion-card-subtitle> {{account.id}}</ion-card-subtitle>
-          <ion-button fill="clear" slot="end" (click)="options($event, account)" size="big">
-            <ion-icon slot="icon-only" name="settings"></ion-icon>
-          </ion-button>
-        </ion-item>
-        <ion-item>
-          <ion-card-title>Cuenta {{typeToString(account.type)}}</ion-card-title>
-        </ion-item>
-        <ion-card-content>
-          <ion-item>
-            <ion-label *ngIf="account.amount < 0" color="danger"><b>Saldo disponible: {{account.amount | currency}}</b></ion-label>
-            <ion-label *ngIf="account.amount >= 0"><b>Saldo disponible: {{account.amount | currency}}</b></ion-label>
-          </ion-item>
-        </ion-card-content>
-      </ion-card>
-      <div *ngIf="accounts?.length == 0">
-        <h1 class="ion-text-center">Este cliente no tiene cuentas</h1>
-      </div>      
+    <ion-card #accountCard *ngFor="let account of accounts; let i = index;" (click)="toggleAccordian(i)">
+      <div class="accordion">
+        <div class="card-container">
+          <div class="card title">
+            <p>{{account.id}}</p>
+          </div>
+          <div class="card body">
+            <h1>Cuenta {{typeToString(account.type)}}</h1>
+          </div>
+          <div class="card body">
+            <p *ngIf="account.amount < 0" class="danger"><b>Saldo disponible: {{account.amount | currency}}</b></p>
+            <p *ngIf="account.amount >= 0"><b>Saldo disponible: {{account.amount | currency}}</b></p>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-content" hide="account.collapsed">
+        <button class="card-btn green" (click)="saveAccount(account)">Ver movimientos</button>
+        <button class="card-btn yellow" (click)="statusAccount(account)">Estado</button>
+        <button class="card-btn red" (click)="cancelAccount(account)">Cancelar</button>
+      </div>
+    </ion-card>
+    <div *ngIf="accounts?.length == 0">
+      <h1 class="ion-text-center">Este cliente no tiene cuentas</h1>
+    </div>
   </ion-infinite-scroll>
 </ion-content>

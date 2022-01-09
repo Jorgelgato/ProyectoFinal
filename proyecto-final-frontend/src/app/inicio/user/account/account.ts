@@ -6,4 +6,5 @@ export class Account {
     created?: string;
     status?: number;
     amount?: number;
+    collapsed?: boolean;
 }
