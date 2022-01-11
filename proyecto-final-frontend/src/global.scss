@@ -106,7 +106,7 @@ form {
 }
 
 .card.body{
-    margin-left: 20px;
+    margin: 0 20px;
 }
 
 .card.end{
@@ -184,4 +184,13 @@ form {
 
 .success{
     color: var(--ion-color-success);
+}
+
+@media (max-width: 500px) {
+    .accordion-content {
+        grid-template-columns: 1fr;
+    }    
+    .card:nth-child(2) {
+        grid-column: initial;
+    }
 }
