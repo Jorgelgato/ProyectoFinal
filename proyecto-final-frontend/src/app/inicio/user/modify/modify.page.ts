@@ -32,9 +32,6 @@ export class ModifyPage implements OnInit {
       'lastName': new FormControl(""),
       'email': new FormControl(""),
       'bornDate': new FormControl(""),
-      'password': new FormControl(""),
-      'confirmPassword': new FormControl(""),
-      'oldPassword': new FormControl("", Validators.required),
     })
   }
 
@@ -52,15 +49,7 @@ export class ModifyPage implements OnInit {
   }
 
   modify() {
-    if (this.formModify.invalid) {
-      this.alert.presentAlert('Ingrese su contraseña actual');
-      return;
-    }
     var values = this.formModify.value
-    if (!this.encrypt.compare(values.oldPassword, this.user.password)) {
-      this.alert.presentAlert('Contraseña incorrecta');
-      return;
-    }
     if (values.idType) {
       this.user.idType = values.idType
     }
@@ -79,14 +68,6 @@ export class ModifyPage implements OnInit {
     if (values.bornDate) {
       this.user.bornDate = values.bornDate
     }
-    if (values.password && values.confirmPassword) {
-      if (values.password == values.confirmPassword) {
-        this.user.password = this.encrypt.encrypt(values.password)
-      } else {
-        this.alert.presentAlert('Las contraseñas no coinciden');
-        return;
-      }
-    } 
     this.updateUser();
   }
 

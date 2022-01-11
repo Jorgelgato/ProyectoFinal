@@ -62,6 +62,11 @@ export class NewOperationPage implements OnInit {
     this.operation.idAccount = this.accountService.account.id;
     this.operation.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
+    if (this.operation.amount == 0) {
+      this.alert.presentErrorToast("El monto debe ser superior a 0");
+      return;
+    }
+
     if (this.operation.operationType == 1 || this.operation.operationType == 2) {
       var gmf = (this.operation.amount * 4) / 1000
       this.alert.presentAlertConfirm('El costo de esta operación es de <ion-text color="danger">' + gmf + '</ion-text>.\n ¿Desea continuar?').then((res) => {
@@ -120,6 +125,9 @@ export class NewOperationPage implements OnInit {
     this.accountService.getAccount(this.operation.idDestination).subscribe(data => {
       if (data.status == 2) {
         this.alert.presentErrorToast("La cuenta destino no existe");
+        
+      } else if (this.accountService.account.id == this.operation.idDestination) {
+        this.alert.presentErrorToast("No puede hacer una transferencia a su propia cuenta");
       } else {
         this.accountService.accountSubtractAmount(this.accountService.account.id, this.operation.amount).subscribe(data => {
           this.operation.credit = 0;

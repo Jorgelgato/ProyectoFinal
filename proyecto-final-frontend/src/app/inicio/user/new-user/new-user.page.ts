@@ -32,9 +32,7 @@ export class NewUserPage implements OnInit {
       'firstName': new FormControl("", Validators.required),
       'lastName': new FormControl("", Validators.required),
       'email': new FormControl("", Validators.required),
-      'bornDate': new FormControl("", Validators.required),
-      'password': new FormControl("", Validators.required),
-      'confirmPassword': new FormControl("", Validators.required)
+      'bornDate': new FormControl("", Validators.required)
     })
   }
 
@@ -46,12 +44,6 @@ export class NewUserPage implements OnInit {
     this.user = values;
     if (this.formRegister.invalid) {
       this.alert.presentAlert('Hay campos vacíos');
-      return;
-    }
-    if (values.password == values.confirmPassword) {
-      this.user.password = this.encrypt.encrypt(values.password)
-    } else {
-      this.alert.presentAlert('Las contraseñas no coinciden');
       return;
     }
     this.user.created = this.datePipe.transform(new Date(), 'yyyy-MM-dd')

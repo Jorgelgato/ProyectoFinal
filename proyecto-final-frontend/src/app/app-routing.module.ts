@@ -18,11 +18,7 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule),
     canActivate: [NotloggedGuard]
-  },
-  {
-    path: 'account',
-    loadChildren: () => import('./inicio/user/account/account.module').then( m => m.AccountPageModule)
-  },
+  }
 ];
 @NgModule({
   imports: [

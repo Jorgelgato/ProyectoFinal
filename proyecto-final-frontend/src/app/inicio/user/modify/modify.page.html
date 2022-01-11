@@ -39,18 +39,6 @@
           <i class="fas fa-calendar"></i>
           <input formControlName="bornDate" type="date" placeholder="Fecha de nacimiento" value="{{user.bornDate}}">
         </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input formControlName="password" type="password" placeholder="Contraseña">
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input formControlName="confirmPassword" type="password" placeholder="Confirmar contraseña">
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input formControlName="oldPassword" type="password" placeholder="Contraseña anterior">
-        </div>
         <input (click)="modify()" type="submit" value="Modificar" class="btn solid">
       </form>
     </ion-card-content>
