@@ -62,16 +62,23 @@ export class NewOperationPage implements OnInit {
     this.operation.idAccount = this.accountService.account.id;
     this.operation.date = this.datePipe.transform(new Date(), 'yyyy-MM-dd hh:mm:ss');
 
-    switch (this.operation.operationType) {
-      case 0:
-        this.deposit();
-        break;
-      case 1:
-        this.withdrawal();
-        break;
-      case 2:
-        this.transfer();
-        break;
+    if (this.operation.operationType == 1 || this.operation.operationType == 2) {
+      var gmf = (this.operation.amount * 4) / 1000
+      this.alert.presentAlertConfirm('El costo de esta operación es de <ion-text color="danger">' + gmf + '</ion-text>.\n ¿Desea continuar?').then((res) => {
+        if (res.data) {
+          this.operation.amount = this.operation.amount + gmf;
+          switch (this.operation.operationType) {
+            case 1:
+              this.withdrawal();
+              break;
+            case 2:
+              this.transfer();
+              break;
+          }
+        }
+      })
+    } else {
+      this.deposit();
     }
   }
 
