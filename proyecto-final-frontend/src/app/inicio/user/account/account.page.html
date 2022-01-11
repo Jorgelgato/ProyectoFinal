@@ -30,6 +30,10 @@
             <p *ngIf="account.amount < 0" class="danger"><b>Saldo disponible: {{account.amount | currency}}</b></p>
             <p *ngIf="account.amount >= 0"><b>Saldo disponible: {{account.amount | currency}}</b></p>
           </div>
+          <div class="card end">
+            <p *ngIf="account.status == 0" class="success"><b>Activa</b></p>
+            <p *ngIf="account.status == 1" class="danger"><b>Inactiva</b></p>
+          </div>
         </div>
       </div>
       <div class="accordion-content" hide="account.collapsed">
